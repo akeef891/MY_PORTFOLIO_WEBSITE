@@ -1,0 +1,335 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Outfit", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --color-bg: #050506;
+  --color-surface: #0c0c0e;
+  --color-accent: #5eead4;
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: #fafafa;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::selection {
+    background: rgba(94, 234, 212, 0.15);
+    color: #fff;
+  }
+}
+
+@keyframes grid-drift {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(64px, 64px);
+  }
+}
+
+@layer utilities {
+  .animate-grid-drift {
+    animation: grid-drift 48s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-grid-drift {
+      animation: none;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .section-container {
+      max-width: 76rem;
+    }
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  .text-accent {
+    background: linear-gradient(135deg, #f4f4f5 0%, #a1a1aa 42%, #5eead4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glass {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+  }
+
+  .glass-strong {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.04) 0%,
+      rgba(255, 255, 255, 0.01) 100%
+    );
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .section-padding {
+    padding-top: clamp(4rem, 10vw, 7.5rem);
+    padding-bottom: clamp(4rem, 10vw, 7.5rem);
+  }
+
+  .section-container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 72rem;
+    padding-left: max(1.125rem, env(safe-area-inset-left));
+    padding-right: max(1.125rem, env(safe-area-inset-right));
+  }
+
+  @media (min-width: 390px) {
+    .section-container {
+      padding-left: max(1.25rem, env(safe-area-inset-left));
+      padding-right: max(1.25rem, env(safe-area-inset-right));
+    }
+  }
+
+  @media (min-width: 640px) {
+    .section-container {
+      padding-left: max(1.5rem, env(safe-area-inset-left));
+      padding-right: max(1.5rem, env(safe-area-inset-right));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-container {
+      padding-left: max(2rem, env(safe-area-inset-left));
+      padding-right: max(2rem, env(safe-area-inset-right));
+    }
+  }
+
+  .section-divider-wrap {
+    padding-top: 0;
+    margin-bottom: 0;
+  }
+
+  .section-divider {
+    margin-left: auto;
+    margin-right: auto;
+    height: 1px;
+    width: 100%;
+    max-width: 72rem;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.05) 15%,
+      rgba(94, 234, 212, 0.12) 50%,
+      rgba(255, 255, 255, 0.05) 85%,
+      transparent
+    );
+  }
+
+  .section-divider-animated {
+    box-shadow: 0 0 24px -8px rgba(94, 234, 212, 0.15);
+  }
+
+  .section-inner {
+    padding-top: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .heading-display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: #fff;
+    line-height: 1.08;
+  }
+
+  .heading-section {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.06;
+    color: #fff;
+    font-size: clamp(1.75rem, 4.2vw, 3.25rem);
+  }
+
+  .body-muted {
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    line-height: 1.75;
+    color: #71717a;
+  }
+
+  @media (min-width: 768px) {
+    .body-muted {
+      line-height: 1.8;
+    }
+  }
+
+  .body-lead {
+    font-size: clamp(1rem, 2.2vw, 1.125rem);
+    line-height: 1.65;
+    color: #a1a1aa;
+  }
+
+  .accent-line {
+    width: 3rem;
+    height: 1px;
+    background: linear-gradient(90deg, #5eead4, transparent);
+  }
+
+  .name-glow {
+    text-shadow: 0 0 80px rgba(94, 234, 212, 0.08);
+  }
+
+  .project-card-glow {
+    transition: box-shadow 0.45s var(--ease-premium), border-color 0.45s var(--ease-premium);
+  }
+
+  .project-card-glow:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.04),
+      0 24px 48px -24px rgba(0, 0, 0, 0.6),
+      0 0 60px -20px rgba(94, 234, 212, 0.08);
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Navbar glass — OUTSIDE @layer so production/Netlify builds never strip it  */
+/* -------------------------------------------------------------------------- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+}
+
+.navbar-shell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navbar-shell--glass {
+  overflow: hidden;
+  border-radius: 0.75rem;
+  padding: 0.625rem 0.75rem;
+}
+
+.navbar-shell--glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: rgba(10, 10, 10, 0.45);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 4px 30px -8px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+@media (min-width: 640px) {
+  .navbar-shell--glass {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Legacy layer node — kept in sync with ::before for production parity */
+.navbar-glass-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: rgba(10, 10, 10, 0.45);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 4px 30px -8px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+.navbar-glass-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .navbar-shell--glass::before,
+  .navbar-glass-layer {
+    background: rgba(10, 10, 10, 0.92);
+  }
+}
+
+/* Fade nav content only — never animate opacity on glass layer ancestors */
+.site-header-fade-in {
+  animation: site-header-fade-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes site-header-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.mobile-menu-overlay {
+  background: rgba(9, 9, 11, 0.75);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+}
