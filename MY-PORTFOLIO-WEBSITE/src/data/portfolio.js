@@ -25,10 +25,28 @@ export const about = {
   title: "Learning the craft of frontend development",
   description:
     "A motivated student who learns by building — not just by watching tutorials.",
-  paragraphs: [
-    "I'm Mohammed Akeef K, a first-year BCA student at Arignar Anna College in Krishnagiri. I got into web development because I liked seeing ideas come alive in the browser — and that curiosity turned into a habit of building small apps, landing pages, and this portfolio.",
-    "Most of my learning happens through projects: breaking problems down, searching docs when I'm stuck, and refining layouts until they feel right on mobile and desktop. I'm especially drawn to modern UI work — clear typography, sensible spacing, and interfaces that feel calm to use.",
-    "I'm still early in my journey, but I'm serious about it. If you're hiring interns or looking for someone eager to contribute and learn fast, I'd love to connect.",
+  intro:
+    "I'm Mohammed Akeef K, a first-year BCA student at Arignar Anna College, Krishnagiri. I build for the web because I like seeing ideas take shape in the browser — from small experiments to full projects like this portfolio.",
+  journey:
+    "Most of what I know comes from doing: breaking problems down, reading docs when I'm stuck, and refining layouts until they feel right on mobile and desktop. I care about clear typography, calm spacing, and interfaces that are easy to use.",
+  closing:
+    "Still early in my path — serious about growing. Open to internships and teams that value curiosity and clean frontend work.",
+  focus: [
+    "Frontend Development",
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "Responsive UI",
+  ],
+  quickStats: [
+    { value: "4+", label: "Projects built" },
+    { value: "React", label: "+ TypeScript" },
+    { value: "Frontend", label: "Focused" },
+    { value: "UI", label: "Responsive enthusiast" },
+  ],
+  miniHighlights: [
+    { label: "Approach", value: "Learn by building" },
+    { label: "Status", value: "Open to intern · 2026" },
   ],
   highlights: [
     {
