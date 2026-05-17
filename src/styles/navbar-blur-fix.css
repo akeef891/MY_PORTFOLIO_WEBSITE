@@ -1,0 +1,9 @@
+/**
+ * Production render parity — same values as index.css navbar glass.
+ * Loaded after Tailwind so backdrop-filter cannot be overridden in Netlify builds.
+ */
+.site-header .navbar-shell--glass::before,
+.site-header .navbar-glass-layer {
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+}
