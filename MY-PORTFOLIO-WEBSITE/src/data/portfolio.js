@@ -168,9 +168,9 @@ export const contact = {
   ctaTitle: "Ready to connect?",
   ctaText:
     "Whether you're hiring interns, need help on a small frontend task, or just want to say hello — my inbox is open.",
-  formSubmitEmail: "mdakeef2009@gmail.com",
   formSubmitAction: "https://formsubmit.co/mdakeef2009@gmail.com",
-  formSubject: "New Portfolio Message",
+  formSubject: "New Portfolio Contact Message",
+  formNextUrl: "https://mohammedakeef-dev.netlify.app",
 };
 
 export const navLinks = [

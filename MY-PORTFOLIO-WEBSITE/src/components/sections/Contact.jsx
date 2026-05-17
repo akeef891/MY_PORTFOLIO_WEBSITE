@@ -1,29 +1,25 @@
-import { useState, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Phone, Send, ArrowUpRight, Loader2 } from "lucide-react";
+import { Mail, MapPin, Phone, Send, ArrowUpRight } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "../ui/SocialIcons";
 import { personal, contact } from "../../data/portfolio";
 import SectionHeading from "../ui/SectionHeading";
 import SectionDivider from "../ui/SectionDivider";
 import Button from "../ui/Button";
-import Toast from "../ui/Toast";
-import { validateContactForm } from "../../lib/validateContact";
 import { ease, staggerContainer, staggerItem, viewport } from "../../lib/motion";
 
 const MAILTO_HREF = `mailto:${personal.email}?subject=${encodeURIComponent("Portfolio inquiry")}`;
 
-function buildReturnUrl() {
-  const url = new URL(window.location.href);
-  url.searchParams.set("sent", "1");
-  url.hash = "contact";
-  return url.toString();
-}
+const INPUT_CLASS =
+  "w-full rounded-xl border border-white/[0.08] bg-white/[0.02] px-4 py-3.5 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-teal-500/40 focus:bg-white/[0.03] focus:ring-2 focus:ring-teal-500/12";
+
+const SUBMIT_BTN_CLASS =
+  "inline-flex w-full min-h-[44px] touch-manipulation items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-medium text-zinc-950 shadow-[0_1px_0_0_rgba(255,255,255,0.12)_inset] transition-[box-shadow,background-color,transform] duration-300 ease-out hover:bg-zinc-50 hover:shadow-[0_12px_40px_-16px_rgba(255,255,255,0.35)] active:scale-[0.98] sm:w-auto";
 
 function ContactBackground() {
   return (
     <motion.div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
       <div className="absolute left-1/2 top-0 h-[min(80vw,480px)] w-[min(90vw,640px)] -translate-x-1/2 rounded-full bg-teal-500/[0.04] blur-[100px]" />
-      <motion.div className="absolute -right-20 bottom-0 h-64 w-64 rounded-full bg-white/[0.02] blur-3xl" />
+      <div className="absolute -right-20 bottom-0 h-64 w-64 rounded-full bg-white/[0.02] blur-3xl" />
     </motion.div>
   );
 }
@@ -55,74 +51,11 @@ function ContactLink({ href, icon: Icon, label, children, iconClassName = "" }) 
   );
 }
 
-function FieldError({ id, message }) {
-  if (!message) return null;
-  return (
-    <p id={id} className="mt-1.5 text-xs text-red-400/90" role="alert">
-      {message}
-    </p>
-  );
-}
-
-const EMPTY_FORM = { name: "", email: "", message: "", honey: "" };
-
 export default function Contact() {
-  const [form, setForm] = useState(EMPTY_FORM);
-  const [errors, setErrors] = useState({});
-  const [submitting, setSubmitting] = useState(false);
-  const [returnUrl, setReturnUrl] = useState("");
-  const [toast, setToast] = useState({ message: "", type: "success" });
-
-  const dismissToast = useCallback(() => setToast({ message: "", type: "success" }), []);
-
-  useEffect(() => {
-    setReturnUrl(buildReturnUrl());
-
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("sent") === "1") {
-      setToast({
-        type: "success",
-        message: "Message sent — I'll get back to you soon.",
-      });
-      const clean = new URL(window.location.href);
-      clean.searchParams.delete("sent");
-      const next = `${clean.pathname}${clean.search}${clean.hash || "#contact"}`;
-      window.history.replaceState({}, "", next);
-    }
-  }, []);
-
-  const handleSubmit = (e) => {
-    if (submitting) {
-      e.preventDefault();
-      return;
-    }
-
-    if (form.honey.trim()) {
-      e.preventDefault();
-      return;
-    }
-
-    const { errors: nextErrors, valid } = validateContactForm(form);
-    setErrors(nextErrors);
-    if (!valid) {
-      e.preventDefault();
-      return;
-    }
-
-    setSubmitting(true);
-  };
-
-  const inputBase =
-    "w-full rounded-xl border bg-white/[0.02] px-4 py-3.5 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:bg-white/[0.03] focus:ring-2";
-  const inputOk =
-    "border-white/[0.08] focus:border-teal-500/40 focus:ring-teal-500/12";
-  const inputErr = "border-red-500/30 focus:border-red-500/40 focus:ring-red-500/10";
-
   return (
     <section id="contact" className="section-padding relative overflow-hidden">
       <ContactBackground />
       <SectionDivider />
-      <Toast message={toast.message} type={toast.type} onClose={dismissToast} />
 
       <div className="section-container section-inner relative">
         <SectionHeading
@@ -146,14 +79,14 @@ export default function Contact() {
             {contact.ctaTitle}
           </h3>
           <p className="body-lead mx-auto mt-3 max-w-lg">{contact.ctaText}</p>
-          <motion.div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:justify-center">
+          <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:justify-center">
             <Button href={MAILTO_HREF} variant="primary" icon={Mail}>
               Email me
             </Button>
             <Button href={personal.resumeUrl} download variant="outline" icon={ArrowUpRight}>
               Download Resume
             </Button>
-          </motion.div>
+          </div>
         </motion.div>
 
         <motion.div
@@ -225,26 +158,12 @@ export default function Contact() {
             <form
               action={contact.formSubmitAction}
               method="POST"
-              onSubmit={handleSubmit}
-              className="relative mt-6 space-y-5 sm:space-y-6"
-              noValidate
-              aria-busy={submitting}
+              className="mt-6 space-y-5 sm:space-y-6"
             >
               <input type="hidden" name="_captcha" value="false" />
               <input type="hidden" name="_template" value="table" />
               <input type="hidden" name="_subject" value={contact.formSubject} />
-              {returnUrl && <input type="hidden" name="_next" value={returnUrl} />}
-
-              <input
-                type="text"
-                name="_gotcha"
-                value={form.honey}
-                onChange={(e) => setForm({ ...form, honey: e.target.value })}
-                tabIndex={-1}
-                autoComplete="off"
-                className="pointer-events-none absolute -left-[9999px] h-px w-px opacity-0"
-                aria-hidden
-              />
+              <input type="hidden" name="_next" value={contact.formNextUrl} />
 
               <div>
                 <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-zinc-500">
@@ -256,19 +175,11 @@ export default function Contact() {
                   type="text"
                   required
                   autoComplete="name"
-                  value={form.name}
-                  disabled={submitting}
-                  onChange={(e) => {
-                    setForm({ ...form, name: e.target.value });
-                    if (errors.name) setErrors({ ...errors, name: "" });
-                  }}
-                  className={`${inputBase} disabled:cursor-not-allowed disabled:opacity-60 ${errors.name ? inputErr : inputOk}`}
+                  className={INPUT_CLASS}
                   placeholder="Your name"
-                  aria-invalid={!!errors.name}
-                  aria-describedby={errors.name ? "contact-name-error" : undefined}
                 />
-                <FieldError id="contact-name-error" message={errors.name} />
               </div>
+
               <div>
                 <label htmlFor="contact-email" className="mb-2 block text-sm font-medium text-zinc-500">
                   Email
@@ -279,19 +190,11 @@ export default function Contact() {
                   type="email"
                   required
                   autoComplete="email"
-                  value={form.email}
-                  disabled={submitting}
-                  onChange={(e) => {
-                    setForm({ ...form, email: e.target.value });
-                    if (errors.email) setErrors({ ...errors, email: "" });
-                  }}
-                  className={`${inputBase} disabled:cursor-not-allowed disabled:opacity-60 ${errors.email ? inputErr : inputOk}`}
+                  className={INPUT_CLASS}
                   placeholder="you@email.com"
-                  aria-invalid={!!errors.email}
-                  aria-describedby={errors.email ? "contact-email-error" : undefined}
                 />
-                <FieldError id="contact-email-error" message={errors.email} />
               </div>
+
               <div>
                 <label htmlFor="contact-message" className="mb-2 block text-sm font-medium text-zinc-500">
                   Message
@@ -301,28 +204,15 @@ export default function Contact() {
                   name="message"
                   rows={5}
                   required
-                  value={form.message}
-                  disabled={submitting}
-                  onChange={(e) => {
-                    setForm({ ...form, message: e.target.value });
-                    if (errors.message) setErrors({ ...errors, message: "" });
-                  }}
-                  className={`${inputBase} resize-none disabled:cursor-not-allowed disabled:opacity-60 ${errors.message ? inputErr : inputOk}`}
+                  className={`${INPUT_CLASS} resize-none`}
                   placeholder="Tell me about an internship, project, or opportunity..."
-                  aria-invalid={!!errors.message}
-                  aria-describedby={errors.message ? "contact-message-error" : undefined}
                 />
-                <FieldError id="contact-message-error" message={errors.message} />
               </div>
-              <Button
-                type="submit"
-                variant="primary"
-                icon={submitting ? Loader2 : Send}
-                disabled={submitting}
-                className={`w-full touch-manipulation sm:w-auto ${submitting ? "[&_svg]:animate-spin" : ""}`}
-              >
-                {submitting ? "Sending…" : "Send message"}
-              </Button>
+
+              <button type="submit" className={SUBMIT_BTN_CLASS}>
+                <Send className="h-4 w-4 shrink-0 opacity-75" aria-hidden />
+                Send message
+              </button>
             </form>
           </motion.div>
         </motion.div>
