@@ -6,6 +6,7 @@ export const personal = {
   location: "Tamil Nadu, India",
   locationShort: "Tamil Nadu, India",
   email: "mdakeef2009@gmail.com",
+  emailHref: "mailto:mdakeef2009@gmail.com?subject=Portfolio%20inquiry",
   phone: "9342903964",
   phoneHref: "tel:+919342903964",
   github: "https://github.com/akeef891",

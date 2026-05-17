@@ -33,17 +33,28 @@ function Button({
     </>
   );
 
-  const motionProps = {
-    whileHover: disabled ? undefined : { y: -2 },
-    whileTap: disabled ? undefined : { scale: 0.98, y: 0 },
-    transition: springTap,
-    className: classes,
-    "aria-disabled": disabled || undefined,
-    ...props,
-  };
-
   if (href) {
     const isHttp = href.startsWith("http://") || href.startsWith("https://");
+    const isMailOrTel = href.startsWith("mailto:") || href.startsWith("tel:");
+
+    if (isMailOrTel) {
+      return (
+        <a
+          href={disabled ? undefined : href}
+          className={classes}
+          aria-disabled={disabled || undefined}
+          onClick={
+            disabled
+              ? (e) => e.preventDefault()
+              : undefined
+          }
+          {...props}
+        >
+          {content}
+        </a>
+      );
+    }
+
     return (
       <motion.a
         href={disabled ? undefined : href}
@@ -51,7 +62,12 @@ function Button({
         target={isHttp ? "_blank" : undefined}
         rel={isHttp ? "noopener noreferrer" : undefined}
         onClick={disabled ? (e) => e.preventDefault() : undefined}
-        {...motionProps}
+        whileHover={disabled ? undefined : { y: -2 }}
+        whileTap={disabled ? undefined : { scale: 0.98, y: 0 }}
+        transition={springTap}
+        className={classes}
+        aria-disabled={disabled || undefined}
+        {...props}
       >
         {content}
       </motion.a>
@@ -59,7 +75,17 @@ function Button({
   }
 
   return (
-    <motion.button type={type} onClick={onClick} disabled={disabled} {...motionProps}>
+    <motion.button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      whileHover={disabled ? undefined : { y: -2 }}
+      whileTap={disabled ? undefined : { scale: 0.98, y: 0 }}
+      transition={springTap}
+      className={classes}
+      aria-disabled={disabled || undefined}
+      {...props}
+    >
       {content}
     </motion.button>
   );

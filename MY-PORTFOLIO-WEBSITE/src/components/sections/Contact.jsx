@@ -10,8 +10,6 @@ import { saveContactMessage } from "../../lib/saveContactMessage";
 import { sendContactEmailNotification } from "../../lib/sendContactEmail";
 import { ease, staggerContainer, staggerItem, viewport } from "../../lib/motion";
 
-const MAILTO_HREF = `mailto:${personal.email}?subject=${encodeURIComponent("Portfolio inquiry")}`;
-
 const INPUT_CLASS =
   "w-full rounded-xl border border-white/[0.08] bg-white/[0.02] px-4 py-3.5 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-teal-500/40 focus:bg-white/[0.03] focus:ring-2 focus:ring-teal-500/12";
 
@@ -28,12 +26,14 @@ function ContactBackground() {
 }
 
 function ContactLink({ href, icon: Icon, label, children, iconClassName = "" }) {
+  const isExternal = href.startsWith("http://") || href.startsWith("https://");
+
   return (
     <li>
       <a
         href={href}
-        target={href.startsWith("http") ? "_blank" : undefined}
-        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
         className="group flex items-center gap-3 rounded-xl border border-transparent p-2 -ml-2 transition-colors hover:border-white/[0.06] hover:bg-white/[0.02]"
       >
         <span
@@ -169,7 +169,7 @@ export default function Contact() {
           </h3>
           <p className="body-lead mx-auto mt-3 max-w-lg">{contact.ctaText}</p>
           <motion.div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:justify-center">
-            <Button href={MAILTO_HREF} variant="primary" icon={Mail}>
+            <Button href={personal.emailHref} variant="primary" icon={Mail}>
               Email me
             </Button>
             <Button href={personal.resumeUrl} download variant="outline" icon={ArrowUpRight}>
@@ -196,7 +196,7 @@ export default function Contact() {
 
             <ul className="mt-8 space-y-3 sm:space-y-4">
               <ContactLink
-                href={`mailto:${personal.email}`}
+                href={personal.emailHref}
                 icon={Mail}
                 label="Email"
                 iconClassName="border-teal-500/20 bg-teal-500/10 text-teal-400"
