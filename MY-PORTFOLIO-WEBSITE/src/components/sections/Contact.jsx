@@ -1,10 +1,12 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Phone, Send, ArrowUpRight } from "lucide-react";
+import { Mail, MapPin, Phone, Send, ArrowUpRight, Loader2 } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "../ui/SocialIcons";
 import { personal, contact } from "../../data/portfolio";
 import SectionHeading from "../ui/SectionHeading";
 import SectionDivider from "../ui/SectionDivider";
 import Button from "../ui/Button";
+import { saveContactMessage } from "../../lib/saveContactMessage";
 import { ease, staggerContainer, staggerItem, viewport } from "../../lib/motion";
 
 const MAILTO_HREF = `mailto:${personal.email}?subject=${encodeURIComponent("Portfolio inquiry")}`;
@@ -13,7 +15,7 @@ const INPUT_CLASS =
   "w-full rounded-xl border border-white/[0.08] bg-white/[0.02] px-4 py-3.5 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-teal-500/40 focus:bg-white/[0.03] focus:ring-2 focus:ring-teal-500/12";
 
 const SUBMIT_BTN_CLASS =
-  "inline-flex w-full min-h-[44px] touch-manipulation items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-medium text-zinc-950 shadow-[0_1px_0_0_rgba(255,255,255,0.12)_inset] transition-[box-shadow,background-color,transform] duration-300 ease-out hover:bg-zinc-50 hover:shadow-[0_12px_40px_-16px_rgba(255,255,255,0.35)] active:scale-[0.98] sm:w-auto";
+  "inline-flex w-full min-h-[44px] touch-manipulation items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-medium text-zinc-950 shadow-[0_1px_0_0_rgba(255,255,255,0.12)_inset] transition-[box-shadow,background-color,transform,opacity] duration-300 ease-out hover:bg-zinc-50 hover:shadow-[0_12px_40px_-16px_rgba(255,255,255,0.35)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto";
 
 function ContactBackground() {
   return (
@@ -51,7 +53,73 @@ function ContactLink({ href, icon: Icon, label, children, iconClassName = "" }) 
   );
 }
 
+function FormStatus({ status, message }) {
+  if (!message) return null;
+  const isSuccess = status === "success";
+  return (
+    <p
+      role="status"
+      className={`rounded-lg border px-4 py-3 text-sm ${
+        isSuccess
+          ? "border-teal-500/20 bg-teal-500/10 text-teal-300"
+          : "border-red-500/20 bg-red-500/10 text-red-300"
+      }`}
+    >
+      {message}
+    </p>
+  );
+}
+
 export default function Contact() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [sending, setSending] = useState(false);
+  const [status, setStatus] = useState({ type: "", message: "" });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (sending) return;
+
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim();
+    const trimmedMessage = message.trim();
+
+    if (!trimmedName || !trimmedEmail || !trimmedMessage) {
+      setStatus({ type: "error", message: "Please fill in all fields." });
+      return;
+    }
+    if (trimmedMessage.length < 10) {
+      setStatus({ type: "error", message: "Message should be at least 10 characters." });
+      return;
+    }
+
+    setSending(true);
+    setStatus({ type: "", message: "" });
+
+    try {
+      await saveContactMessage({
+        name: trimmedName,
+        email: trimmedEmail,
+        message: trimmedMessage,
+      });
+      setName("");
+      setEmail("");
+      setMessage("");
+      setStatus({
+        type: "success",
+        message: "Message sent — I'll get back to you soon.",
+      });
+    } catch {
+      setStatus({
+        type: "error",
+        message: "Couldn't save your message. Try Email me or try again later.",
+      });
+    } finally {
+      setSending(false);
+    }
+  };
+
   return (
     <section id="contact" className="section-padding relative overflow-hidden">
       <ContactBackground />
@@ -79,14 +147,14 @@ export default function Contact() {
             {contact.ctaTitle}
           </h3>
           <p className="body-lead mx-auto mt-3 max-w-lg">{contact.ctaText}</p>
-          <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:justify-center">
+          <motion.div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:justify-center">
             <Button href={MAILTO_HREF} variant="primary" icon={Mail}>
               Email me
             </Button>
             <Button href={personal.resumeUrl} download variant="outline" icon={ArrowUpRight}>
               Download Resume
             </Button>
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.div
@@ -152,19 +220,10 @@ export default function Contact() {
           <motion.div variants={staggerItem} className="glass rounded-2xl p-5 sm:p-6 lg:p-8">
             <h3 className="heading-display text-xl text-white sm:text-2xl">Send a message</h3>
             <p className="body-muted mt-2 text-sm leading-relaxed">
-              Your message goes straight to my inbox — no account needed.
+              Your message is saved securely — I'll reply as soon as I can.
             </p>
 
-            <form
-              action={contact.formSubmitAction}
-              method="POST"
-              className="mt-6 space-y-5 sm:space-y-6"
-            >
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_subject" value={contact.formSubject} />
-              <input type="hidden" name="_next" value={contact.formNextUrl} />
-
+            <form onSubmit={handleSubmit} className="mt-6 space-y-5 sm:space-y-6" noValidate>
               <div>
                 <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-zinc-500">
                   Name
@@ -175,6 +234,9 @@ export default function Contact() {
                   type="text"
                   required
                   autoComplete="name"
+                  value={name}
+                  disabled={sending}
+                  onChange={(e) => setName(e.target.value)}
                   className={INPUT_CLASS}
                   placeholder="Your name"
                 />
@@ -190,6 +252,9 @@ export default function Contact() {
                   type="email"
                   required
                   autoComplete="email"
+                  value={email}
+                  disabled={sending}
+                  onChange={(e) => setEmail(e.target.value)}
                   className={INPUT_CLASS}
                   placeholder="you@email.com"
                 />
@@ -204,14 +269,23 @@ export default function Contact() {
                   name="message"
                   rows={5}
                   required
+                  value={message}
+                  disabled={sending}
+                  onChange={(e) => setMessage(e.target.value)}
                   className={`${INPUT_CLASS} resize-none`}
                   placeholder="Tell me about an internship, project, or opportunity..."
                 />
               </div>
 
-              <button type="submit" className={SUBMIT_BTN_CLASS}>
-                <Send className="h-4 w-4 shrink-0 opacity-75" aria-hidden />
-                Send message
+              <FormStatus status={status.type} message={status.message} />
+
+              <button type="submit" disabled={sending} className={SUBMIT_BTN_CLASS}>
+                {sending ? (
+                  <Loader2 className="h-4 w-4 shrink-0 animate-spin opacity-75" aria-hidden />
+                ) : (
+                  <Send className="h-4 w-4 shrink-0 opacity-75" aria-hidden />
+                )}
+                {sending ? "Sending…" : "Send message"}
               </button>
             </form>
           </motion.div>

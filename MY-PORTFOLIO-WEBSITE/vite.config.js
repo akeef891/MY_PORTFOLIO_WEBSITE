@@ -12,6 +12,7 @@ export default defineConfig({
         manualChunks(id) {
           if (id.includes("framer-motion")) return "motion";
           if (id.includes("lucide-react")) return "icons";
+          if (id.includes("firebase")) return "firebase";
         },
       },
     },

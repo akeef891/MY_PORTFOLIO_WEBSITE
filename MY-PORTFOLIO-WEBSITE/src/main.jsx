@@ -4,6 +4,9 @@ import "./index.css";
 import "./styles/navbar-blur-fix.css";
 import MotionProvider from "./components/providers/MotionProvider";
 import App from "./App.jsx";
+import { initAnalytics } from "./lib/firebase";
+
+initAnalytics();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

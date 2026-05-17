@@ -8,5 +8,8 @@
     "preview": "npm run preview --prefix MY-PORTFOLIO-WEBSITE",
     "lint": "npm run lint --prefix MY-PORTFOLIO-WEBSITE",
     "install:app": "npm install --prefix MY-PORTFOLIO-WEBSITE"
+  },
+  "dependencies": {
+    "firebase": "^12.13.0"
   }
 }
