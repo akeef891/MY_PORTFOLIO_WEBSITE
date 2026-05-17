@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Mail, MapPin, Phone, Send, ArrowUpRight, Loader2 } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "../ui/SocialIcons";
@@ -7,16 +7,22 @@ import SectionHeading from "../ui/SectionHeading";
 import SectionDivider from "../ui/SectionDivider";
 import Button from "../ui/Button";
 import Toast from "../ui/Toast";
-import { submitContactForm } from "../../lib/contactForm";
 import { validateContactForm } from "../../lib/validateContact";
 import { ease, staggerContainer, staggerItem, viewport } from "../../lib/motion";
 
 const MAILTO_HREF = `mailto:${personal.email}?subject=${encodeURIComponent("Portfolio inquiry")}`;
 
+function buildReturnUrl() {
+  const url = new URL(window.location.href);
+  url.searchParams.set("sent", "1");
+  url.hash = "contact";
+  return url.toString();
+}
+
 function ContactBackground() {
   return (
     <motion.div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-      <motion.div className="absolute left-1/2 top-0 h-[min(80vw,480px)] w-[min(90vw,640px)] -translate-x-1/2 rounded-full bg-teal-500/[0.04] blur-[100px]" />
+      <div className="absolute left-1/2 top-0 h-[min(80vw,480px)] w-[min(90vw,640px)] -translate-x-1/2 rounded-full bg-teal-500/[0.04] blur-[100px]" />
       <motion.div className="absolute -right-20 bottom-0 h-64 w-64 rounded-full bg-white/[0.02] blur-3xl" />
     </motion.div>
   );
@@ -63,46 +69,47 @@ const EMPTY_FORM = { name: "", email: "", message: "", honey: "" };
 export default function Contact() {
   const [form, setForm] = useState(EMPTY_FORM);
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [returnUrl, setReturnUrl] = useState("");
   const [toast, setToast] = useState({ message: "", type: "success" });
 
   const dismissToast = useCallback(() => setToast({ message: "", type: "success" }), []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (loading) return;
+  useEffect(() => {
+    setReturnUrl(buildReturnUrl());
 
-    if (form.honey.trim()) return;
-
-    const { errors: nextErrors, valid, values } = validateContactForm(form);
-    setErrors(nextErrors);
-    if (!valid) return;
-
-    setLoading(true);
-    try {
-      const result = await submitContactForm(values);
-
-      if (result.ok) {
-        setForm(EMPTY_FORM);
-        setErrors({});
-        setToast({
-          type: "success",
-          message: "Message sent — I'll get back to you soon.",
-        });
-      } else {
-        setToast({
-          type: "error",
-          message: result.message ?? "Couldn't send right now. Try emailing me directly.",
-        });
-      }
-    } catch {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("sent") === "1") {
       setToast({
-        type: "error",
-        message: `Couldn't send right now. Email ${personal.email} directly.`,
+        type: "success",
+        message: "Message sent — I'll get back to you soon.",
       });
-    } finally {
-      setLoading(false);
+      const clean = new URL(window.location.href);
+      clean.searchParams.delete("sent");
+      const next = `${clean.pathname}${clean.search}${clean.hash || "#contact"}`;
+      window.history.replaceState({}, "", next);
     }
+  }, []);
+
+  const handleSubmit = (e) => {
+    if (submitting) {
+      e.preventDefault();
+      return;
+    }
+
+    if (form.honey.trim()) {
+      e.preventDefault();
+      return;
+    }
+
+    const { errors: nextErrors, valid } = validateContactForm(form);
+    setErrors(nextErrors);
+    if (!valid) {
+      e.preventDefault();
+      return;
+    }
+
+    setSubmitting(true);
   };
 
   const inputBase =
@@ -139,14 +146,14 @@ export default function Contact() {
             {contact.ctaTitle}
           </h3>
           <p className="body-lead mx-auto mt-3 max-w-lg">{contact.ctaText}</p>
-          <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:justify-center">
+          <motion.div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:justify-center">
             <Button href={MAILTO_HREF} variant="primary" icon={Mail}>
               Email me
             </Button>
             <Button href={personal.resumeUrl} download variant="outline" icon={ArrowUpRight}>
               Download Resume
             </Button>
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.div
@@ -216,14 +223,21 @@ export default function Contact() {
             </p>
 
             <form
+              action={contact.formSubmitAction}
+              method="POST"
               onSubmit={handleSubmit}
               className="relative mt-6 space-y-5 sm:space-y-6"
               noValidate
-              aria-busy={loading}
+              aria-busy={submitting}
             >
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_subject" value={contact.formSubject} />
+              {returnUrl && <input type="hidden" name="_next" value={returnUrl} />}
+
               <input
                 type="text"
-                name="_honey"
+                name="_gotcha"
                 value={form.honey}
                 onChange={(e) => setForm({ ...form, honey: e.target.value })}
                 tabIndex={-1}
@@ -231,6 +245,7 @@ export default function Contact() {
                 className="pointer-events-none absolute -left-[9999px] h-px w-px opacity-0"
                 aria-hidden
               />
+
               <div>
                 <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-zinc-500">
                   Name
@@ -239,9 +254,10 @@ export default function Contact() {
                   id="contact-name"
                   name="name"
                   type="text"
+                  required
                   autoComplete="name"
                   value={form.name}
-                  disabled={loading}
+                  disabled={submitting}
                   onChange={(e) => {
                     setForm({ ...form, name: e.target.value });
                     if (errors.name) setErrors({ ...errors, name: "" });
@@ -261,9 +277,10 @@ export default function Contact() {
                   id="contact-email"
                   name="email"
                   type="email"
+                  required
                   autoComplete="email"
                   value={form.email}
-                  disabled={loading}
+                  disabled={submitting}
                   onChange={(e) => {
                     setForm({ ...form, email: e.target.value });
                     if (errors.email) setErrors({ ...errors, email: "" });
@@ -283,8 +300,9 @@ export default function Contact() {
                   id="contact-message"
                   name="message"
                   rows={5}
+                  required
                   value={form.message}
-                  disabled={loading}
+                  disabled={submitting}
                   onChange={(e) => {
                     setForm({ ...form, message: e.target.value });
                     if (errors.message) setErrors({ ...errors, message: "" });
@@ -299,11 +317,11 @@ export default function Contact() {
               <Button
                 type="submit"
                 variant="primary"
-                icon={loading ? Loader2 : Send}
-                disabled={loading}
-                className={`w-full touch-manipulation sm:w-auto ${loading ? "[&_svg]:animate-spin" : ""}`}
+                icon={submitting ? Loader2 : Send}
+                disabled={submitting}
+                className={`w-full touch-manipulation sm:w-auto ${submitting ? "[&_svg]:animate-spin" : ""}`}
               >
-                {loading ? "Sending…" : "Send message"}
+                {submitting ? "Sending…" : "Send message"}
               </Button>
             </form>
           </motion.div>
