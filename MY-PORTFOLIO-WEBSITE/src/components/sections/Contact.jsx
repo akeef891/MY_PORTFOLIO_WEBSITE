@@ -7,6 +7,7 @@ import SectionHeading from "../ui/SectionHeading";
 import SectionDivider from "../ui/SectionDivider";
 import Button from "../ui/Button";
 import { saveContactMessage } from "../../lib/saveContactMessage";
+import { sendContactEmailNotification } from "../../lib/sendContactEmail";
 import { ease, staggerContainer, staggerItem, viewport } from "../../lib/motion";
 
 const MAILTO_HREF = `mailto:${personal.email}?subject=${encodeURIComponent("Portfolio inquiry")}`;
@@ -103,6 +104,26 @@ export default function Contact() {
         email: trimmedEmail,
         message: trimmedMessage,
       });
+
+      try {
+        await sendContactEmailNotification({
+          name: trimmedName,
+          email: trimmedEmail,
+          message: trimmedMessage,
+        });
+      } catch (emailError) {
+        console.error("[contact] Email notification failed:", emailError);
+        setName("");
+        setEmail("");
+        setMessage("");
+        setStatus({
+          type: "success",
+          message:
+            "Message saved. Email alert did not send — I'll still see it in my inbox soon.",
+        });
+        return;
+      }
+
       setName("");
       setEmail("");
       setMessage("");
