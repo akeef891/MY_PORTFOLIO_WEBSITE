@@ -1,0 +1,12 @@
+{
+  "name": "my-portfolio-website",
+  "private": true,
+  "description": "Root workspace — runs the Vite app in MY-PORTFOLIO-WEBSITE",
+  "scripts": {
+    "dev": "npm run dev --prefix MY-PORTFOLIO-WEBSITE",
+    "build": "npm run build --prefix MY-PORTFOLIO-WEBSITE",
+    "preview": "npm run preview --prefix MY-PORTFOLIO-WEBSITE",
+    "lint": "npm run lint --prefix MY-PORTFOLIO-WEBSITE",
+    "install:app": "npm install --prefix MY-PORTFOLIO-WEBSITE"
+  }
+}
