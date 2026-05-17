@@ -168,6 +168,7 @@ export const contact = {
   ctaTitle: "Ready to connect?",
   ctaText:
     "Whether you're hiring interns, need help on a small frontend task, or just want to say hello — my inbox is open.",
+  formSubmitEmail: "mdakeef2009@gmail.com",
   formSubmitUrl: "https://formsubmit.co/ajax/mdakeef2009@gmail.com",
 };
 

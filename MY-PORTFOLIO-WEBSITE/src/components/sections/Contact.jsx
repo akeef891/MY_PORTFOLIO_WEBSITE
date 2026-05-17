@@ -7,6 +7,8 @@ import SectionHeading from "../ui/SectionHeading";
 import SectionDivider from "../ui/SectionDivider";
 import Button from "../ui/Button";
 import Toast from "../ui/Toast";
+import { submitContactForm } from "../../lib/contactForm";
+import { validateContactForm } from "../../lib/validateContact";
 import { ease, staggerContainer, staggerItem, viewport } from "../../lib/motion";
 
 const MAILTO_HREF = `mailto:${personal.email}?subject=${encodeURIComponent("Portfolio inquiry")}`;
@@ -56,60 +58,47 @@ function FieldError({ id, message }) {
   );
 }
 
+const EMPTY_FORM = { name: "", email: "", message: "", honey: "" };
+
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState(EMPTY_FORM);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState({ message: "", type: "success" });
 
   const dismissToast = useCallback(() => setToast({ message: "", type: "success" }), []);
 
-  const validate = () => {
-    const next = {};
-    if (!form.name.trim()) next.name = "Please enter your name.";
-    if (!form.email.trim()) next.email = "Please enter your email.";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
-      next.email = "Please enter a valid email address.";
-    if (!form.message.trim()) next.message = "Please write a short message.";
-    else if (form.message.trim().length < 10)
-      next.message = "Message should be at least 10 characters.";
-    setErrors(next);
-    return Object.keys(next).length === 0;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validate()) return;
+    if (loading) return;
+
+    if (form.honey.trim()) return;
+
+    const { errors: nextErrors, valid, values } = validateContactForm(form);
+    setErrors(nextErrors);
+    if (!valid) return;
 
     setLoading(true);
     try {
-      const res = await fetch(contact.formSubmitUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          name: form.name.trim(),
-          email: form.email.trim(),
-          message: form.message.trim(),
-          _subject: `Portfolio message from ${form.name.trim()}`,
-          _template: "table",
-        }),
-      });
+      const result = await submitContactForm(values);
 
-      if (!res.ok) throw new Error("Send failed");
-
-      setForm({ name: "", email: "", message: "" });
-      setErrors({});
-      setToast({
-        type: "success",
-        message: "Message sent — I'll get back to you soon.",
-      });
+      if (result.ok) {
+        setForm(EMPTY_FORM);
+        setErrors({});
+        setToast({
+          type: "success",
+          message: "Message sent — I'll get back to you soon.",
+        });
+      } else {
+        setToast({
+          type: "error",
+          message: result.message ?? "Couldn't send right now. Try emailing me directly.",
+        });
+      }
     } catch {
       setToast({
         type: "error",
-        message: "Couldn't send right now. Try emailing me directly.",
+        message: `Couldn't send right now. Email ${personal.email} directly.`,
       });
     } finally {
       setLoading(false);
@@ -226,7 +215,22 @@ export default function Contact() {
               Your message goes straight to my inbox — no account needed.
             </p>
 
-            <form onSubmit={handleSubmit} className="mt-6 space-y-5 sm:space-y-6" noValidate>
+            <form
+              onSubmit={handleSubmit}
+              className="relative mt-6 space-y-5 sm:space-y-6"
+              noValidate
+              aria-busy={loading}
+            >
+              <input
+                type="text"
+                name="_honey"
+                value={form.honey}
+                onChange={(e) => setForm({ ...form, honey: e.target.value })}
+                tabIndex={-1}
+                autoComplete="off"
+                className="pointer-events-none absolute -left-[9999px] h-px w-px opacity-0"
+                aria-hidden
+              />
               <div>
                 <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-zinc-500">
                   Name
@@ -237,11 +241,12 @@ export default function Contact() {
                   type="text"
                   autoComplete="name"
                   value={form.name}
+                  disabled={loading}
                   onChange={(e) => {
                     setForm({ ...form, name: e.target.value });
                     if (errors.name) setErrors({ ...errors, name: "" });
                   }}
-                  className={`${inputBase} ${errors.name ? inputErr : inputOk}`}
+                  className={`${inputBase} disabled:cursor-not-allowed disabled:opacity-60 ${errors.name ? inputErr : inputOk}`}
                   placeholder="Your name"
                   aria-invalid={!!errors.name}
                   aria-describedby={errors.name ? "contact-name-error" : undefined}
@@ -258,11 +263,12 @@ export default function Contact() {
                   type="email"
                   autoComplete="email"
                   value={form.email}
+                  disabled={loading}
                   onChange={(e) => {
                     setForm({ ...form, email: e.target.value });
                     if (errors.email) setErrors({ ...errors, email: "" });
                   }}
-                  className={`${inputBase} ${errors.email ? inputErr : inputOk}`}
+                  className={`${inputBase} disabled:cursor-not-allowed disabled:opacity-60 ${errors.email ? inputErr : inputOk}`}
                   placeholder="you@email.com"
                   aria-invalid={!!errors.email}
                   aria-describedby={errors.email ? "contact-email-error" : undefined}
@@ -278,11 +284,12 @@ export default function Contact() {
                   name="message"
                   rows={5}
                   value={form.message}
+                  disabled={loading}
                   onChange={(e) => {
                     setForm({ ...form, message: e.target.value });
                     if (errors.message) setErrors({ ...errors, message: "" });
                   }}
-                  className={`${inputBase} resize-none ${errors.message ? inputErr : inputOk}`}
+                  className={`${inputBase} resize-none disabled:cursor-not-allowed disabled:opacity-60 ${errors.message ? inputErr : inputOk}`}
                   placeholder="Tell me about an internship, project, or opportunity..."
                   aria-invalid={!!errors.message}
                   aria-describedby={errors.message ? "contact-message-error" : undefined}
@@ -294,7 +301,7 @@ export default function Contact() {
                 variant="primary"
                 icon={loading ? Loader2 : Send}
                 disabled={loading}
-                className={loading ? "w-full sm:w-auto [&_svg]:animate-spin" : "w-full sm:w-auto"}
+                className={`w-full touch-manipulation sm:w-auto ${loading ? "[&_svg]:animate-spin" : ""}`}
               >
                 {loading ? "Sending…" : "Send message"}
               </Button>
