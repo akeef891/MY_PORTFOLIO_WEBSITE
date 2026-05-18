@@ -6,7 +6,16 @@ import MotionProvider from "./components/providers/MotionProvider";
 import App from "./App.jsx";
 import { initAnalytics } from "./lib/firebase";
 
-initAnalytics();
+if (typeof window !== "undefined") {
+  const runAnalytics = () => {
+    void initAnalytics();
+  };
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(runAnalytics, { timeout: 2500 });
+  } else {
+    window.setTimeout(runAnalytics, 1200);
+  }
+}
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

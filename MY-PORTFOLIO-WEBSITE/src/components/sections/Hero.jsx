@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { motion } from "framer-motion";
-import { ArrowDown, Download, ArrowUpRight } from "lucide-react";
+import { Download, ArrowUpRight } from "lucide-react";
 import { personal } from "../../data/portfolio";
 import { GitHubIcon, LinkedInIcon } from "../ui/SocialIcons";
 import Button from "../ui/Button";
@@ -19,7 +19,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[100svh] items-center overflow-hidden pt-[calc(5.25rem+env(safe-area-inset-top))] pb-14 sm:pb-20 md:pt-32 md:pb-28"
+      className="relative overflow-hidden pt-[calc(5.25rem+env(safe-area-inset-top))] pb-10 sm:pb-12 md:pt-28 lg:flex lg:min-h-[100svh] lg:items-center lg:pb-20"
     >
       <HeroBackground />
 
@@ -122,18 +122,6 @@ export default function Hero() {
           <HeroVisual />
         </div>
       </div>
-
-      <motion.a
-        href="#about"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.9 }}
-        className="group absolute bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-1.5 text-zinc-500 transition-colors duration-300 hover:text-zinc-300"
-        aria-label="Scroll to about section"
-      >
-        <span className="font-mono text-[9px] uppercase tracking-widest">Scroll</span>
-        <ArrowDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5" />
-      </motion.a>
     </section>
   );
 }

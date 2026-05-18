@@ -19,8 +19,8 @@ const SUBMIT_BTN_CLASS =
 function ContactBackground() {
   return (
     <motion.div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-      <div className="absolute left-1/2 top-0 h-[min(80vw,480px)] w-[min(90vw,640px)] -translate-x-1/2 rounded-full bg-teal-500/[0.04] blur-[100px]" />
-      <div className="absolute -right-20 bottom-0 h-64 w-64 rounded-full bg-white/[0.02] blur-3xl" />
+      <div className="absolute left-1/2 top-0 h-[min(70vw,400px)] w-[min(85vw,520px)] -translate-x-1/2 rounded-full bg-teal-500/[0.04] blur-[48px] sm:blur-[72px] md:blur-[100px]" />
+      <div className="absolute -right-20 bottom-0 hidden h-64 w-64 rounded-full bg-white/[0.02] blur-3xl sm:block" />
     </motion.div>
   );
 }
@@ -153,11 +153,12 @@ export default function Contact() {
         />
 
         <motion.div
+          id="lets-connect"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: 0.65, ease }}
-          className="glass-strong mb-10 rounded-2xl border border-white/[0.08] p-6 text-center sm:mb-12 sm:p-10 md:p-12"
+          className="glass-strong mb-10 scroll-mt-28 rounded-2xl border border-white/[0.08] p-6 text-center sm:mb-12 sm:scroll-mt-32 sm:p-10 md:p-12"
         >
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-teal-400/80">
             Available for internships
@@ -177,11 +178,12 @@ export default function Contact() {
         </motion.div>
 
         <motion.div
+          id="contact-touch"
           variants={staggerContainer}
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className="grid gap-6 lg:grid-cols-2 lg:gap-8"
+          className="grid scroll-mt-28 gap-6 sm:scroll-mt-32 lg:grid-cols-2 lg:gap-8"
         >
           <motion.div
             variants={staggerItem}

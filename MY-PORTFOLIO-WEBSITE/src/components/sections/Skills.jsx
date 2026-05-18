@@ -13,8 +13,7 @@ function SkillBadge({ name, delay }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.35, delay, ease }}
-      whileHover={hoverLift}
-      transition={hoverLiftTransition}
+      whileHover={{ ...hoverLift, transition: hoverLiftTransition }}
       className="list-none rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-sm text-zinc-300 transition-colors duration-300 hover:border-teal-500/25 hover:text-zinc-100"
     >
       {name}

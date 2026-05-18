@@ -18,8 +18,16 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5.25rem;
     overflow-x: hidden;
     -webkit-text-size-adjust: 100%;
+    overscroll-behavior-y: none;
+  }
+
+  @media (min-width: 768px) {
+    html {
+      scroll-padding-top: 5.75rem;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -36,6 +44,21 @@
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    body {
+      scroll-behavior: smooth;
+    }
+  }
+
+  main > section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
+  }
+
+  #hero {
+    content-visibility: visible;
   }
 
   :focus-visible {
@@ -136,8 +159,13 @@
   }
 
   .section-padding {
-    padding-top: clamp(3.5rem, 9vw, 7.5rem);
-    padding-bottom: clamp(3.5rem, 9vw, 7.5rem);
+    padding-top: clamp(2.25rem, 5vw, 4rem);
+    padding-bottom: clamp(2.25rem, 5vw, 4rem);
+  }
+
+  /* Tighter gap right after hero (no double padding feel) */
+  #about.section-padding {
+    padding-top: clamp(1.75rem, 4vw, 3rem);
   }
 
   .section-container {
@@ -196,7 +224,7 @@
   }
 
   .section-inner {
-    padding-top: clamp(2rem, 5vw, 4.5rem);
+    padding-top: clamp(1rem, 2.5vw, 1.75rem);
   }
 
   .heading-display {
@@ -471,9 +499,33 @@
   animation: hero-typewriter-cursor 1s step-end infinite;
 }
 
+@keyframes hero-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.72;
+  }
+}
+
+.hero-glow-pulse {
+  animation: hero-glow-pulse 12s ease-in-out infinite;
+  will-change: opacity;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .hero-glow-pulse,
+  .animate-grid-drift {
+    animation: none !important;
+  }
+
   .hero-typewriter-cursor {
     animation: none;
     opacity: 0.85;
+  }
+
+  main > section {
+    content-visibility: visible;
   }
 }

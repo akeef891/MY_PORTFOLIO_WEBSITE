@@ -1,4 +1,4 @@
-﻿import { memo, useCallback } from "react";
+﻿import { memo, useCallback, useRef } from "react";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { GitHubIcon } from "../ui/SocialIcons";
@@ -120,21 +120,25 @@ function ProjectActions({ project, className = "" }) {
 function FeaturedProject({ project }) {
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
+  const rafRef = useRef(0);
   const spotlight = useMotionTemplate`radial-gradient(520px circle at ${mx}px ${my}px, rgba(94,234,212,0.07), transparent 55%)`;
 
   const onMove = useCallback(
     (e) => {
       if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-      const rect = e.currentTarget.getBoundingClientRect();
-      mx.set(e.clientX - rect.left);
-      my.set(e.clientY - rect.top);
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        mx.set(e.clientX - rect.left);
+        my.set(e.clientY - rect.top);
+      });
     },
     [mx, my]
   );
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={viewport}
       transition={{ duration: 0.7, ease }}
