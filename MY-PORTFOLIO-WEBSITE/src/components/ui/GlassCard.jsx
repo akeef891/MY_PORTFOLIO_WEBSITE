@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { ease, hoverLift, hoverLiftTransition } from "../../lib/motion";
 
 export default function GlassCard({
   children,
@@ -9,12 +10,12 @@ export default function GlassCard({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={hover ? { y: -4, transition: { duration: 0.2 } } : undefined}
-      className={`glass group rounded-2xl p-6 transition-colors duration-300 hover:border-white/20 hover:bg-white/[0.05] ${className}`}
+      transition={{ duration: 0.5, delay, ease }}
+      whileHover={hover ? { ...hoverLift, transition: hoverLiftTransition } : undefined}
+      className={`glass group rounded-2xl p-6 sm:p-7 ${className}`}
       {...props}
     >
       {children}

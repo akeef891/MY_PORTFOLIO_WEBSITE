@@ -7,6 +7,11 @@
   --color-bg: #050506;
   --color-surface: #0c0c0e;
   --color-accent: #5eead4;
+  --color-text-primary: #f4f4f5;
+  --color-text-secondary: #d4d4d8;
+  --color-text-muted: #a1a1aa;
+  --color-text-subtle: #8b8b95;
+  --color-text-faint: #6b6b74;
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -25,12 +30,17 @@
 
   body {
     background-color: var(--color-bg);
-    color: #fafafa;
+    color: var(--color-text-primary);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgba(94, 234, 212, 0.45);
+    outline-offset: 2px;
   }
 
   img,
@@ -92,26 +102,42 @@
   }
 
   .glass {
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(14px) saturate(150%);
-    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.035) 0%,
+      rgba(255, 255, 255, 0.015) 100%
+    );
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition:
+      border-color 0.3s var(--ease-premium),
+      background-color 0.3s var(--ease-premium),
+      box-shadow 0.3s var(--ease-premium);
   }
 
   .glass-strong {
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     background: linear-gradient(
-      145deg,
-      rgba(255, 255, 255, 0.04) 0%,
+      155deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.02) 50%,
       rgba(255, 255, 255, 0.01) 100%
     );
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 16px 40px -24px rgba(0, 0, 0, 0.5);
+    transition:
+      border-color 0.3s var(--ease-premium),
+      box-shadow 0.3s var(--ease-premium);
   }
 
   .section-padding {
-    padding-top: clamp(4rem, 10vw, 7.5rem);
-    padding-bottom: clamp(4rem, 10vw, 7.5rem);
+    padding-top: clamp(3.5rem, 9vw, 7.5rem);
+    padding-bottom: clamp(3.5rem, 9vw, 7.5rem);
   }
 
   .section-container {
@@ -170,14 +196,14 @@
   }
 
   .section-inner {
-    padding-top: clamp(2.5rem, 6vw, 5rem);
+    padding-top: clamp(2rem, 5vw, 4.5rem);
   }
 
   .heading-display {
     font-family: var(--font-display);
     font-weight: 600;
     letter-spacing: -0.03em;
-    color: #fff;
+    color: var(--color-text-primary);
     line-height: 1.08;
   }
 
@@ -186,14 +212,14 @@
     font-weight: 600;
     letter-spacing: -0.035em;
     line-height: 1.06;
-    color: #fff;
+    color: var(--color-text-primary);
     font-size: clamp(1.75rem, 4.2vw, 3.25rem);
   }
 
   .body-muted {
     font-size: clamp(0.875rem, 2vw, 1rem);
     line-height: 1.75;
-    color: #71717a;
+    color: var(--color-text-muted);
   }
 
   @media (min-width: 768px) {
@@ -205,7 +231,35 @@
   .body-lead {
     font-size: clamp(1rem, 2.2vw, 1.125rem);
     line-height: 1.65;
-    color: #a1a1aa;
+    color: var(--color-text-secondary);
+  }
+
+  .text-label {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-text-subtle);
+  }
+
+  @media (min-width: 640px) {
+    .text-label {
+      font-size: 0.6875rem;
+      letter-spacing: 0.18em;
+    }
+  }
+
+  .text-section-index {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    color: var(--color-text-faint);
+  }
+
+  @media (min-width: 640px) {
+    .text-section-index {
+      font-size: 0.75rem;
+    }
   }
 
   .stat-caption {
@@ -214,20 +268,42 @@
     font-weight: 500;
     letter-spacing: 0.08em;
     line-height: 1.45;
-    color: #a1a1aa;
-    transition: color 0.3s ease;
+    color: var(--color-text-muted);
+    transition: color 0.3s var(--ease-premium);
   }
 
   @media (min-width: 640px) {
     .stat-caption {
       font-size: 0.75rem;
       letter-spacing: 0.09em;
-      color: #b4b4bb;
     }
   }
 
   .stat-block:hover .stat-caption {
-    color: #d4d4d8;
+    color: var(--color-text-secondary);
+  }
+
+  .card-surface {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.035) 0%,
+      rgba(255, 255, 255, 0.012) 100%
+    );
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    transition:
+      border-color 0.35s var(--ease-premium),
+      background-color 0.35s var(--ease-premium),
+      box-shadow 0.35s var(--ease-premium);
+  }
+
+  .card-surface:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    background: linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.045) 0%,
+      rgba(255, 255, 255, 0.018) 100%
+    );
   }
 
   .accent-line {
@@ -241,15 +317,24 @@
   }
 
   .project-card-glow {
-    transition: box-shadow 0.45s var(--ease-premium), border-color 0.45s var(--ease-premium);
+    transition:
+      transform 0.4s var(--ease-premium),
+      box-shadow 0.45s var(--ease-premium),
+      border-color 0.45s var(--ease-premium);
   }
 
   .project-card-glow:hover {
     border-color: rgba(255, 255, 255, 0.12);
     box-shadow:
       0 0 0 1px rgba(255, 255, 255, 0.04),
-      0 24px 48px -24px rgba(0, 0, 0, 0.6),
-      0 0 60px -20px rgba(94, 234, 212, 0.08);
+      0 20px 44px -22px rgba(0, 0, 0, 0.55),
+      0 0 48px -24px rgba(94, 234, 212, 0.06);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .project-card-glow:hover {
+      transform: translateY(-2px);
+    }
   }
 }
 
@@ -354,4 +439,41 @@
   background: rgba(9, 9, 11, 0.75);
   backdrop-filter: blur(12px) saturate(150%);
   -webkit-backdrop-filter: blur(12px) saturate(150%);
+}
+
+/* Hero visual — minimal glass inset styles */
+.hero-visual-panel {
+  contain: layout paint;
+}
+
+.hero-visual-glass-inset {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.045) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+@keyframes hero-typewriter-cursor {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.hero-typewriter-cursor {
+  animation: hero-typewriter-cursor 1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-typewriter-cursor {
+    animation: none;
+    opacity: 0.85;
+  }
 }

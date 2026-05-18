@@ -11,7 +11,7 @@ import { sendContactEmailNotification } from "../../lib/sendContactEmail";
 import { ease, staggerContainer, staggerItem, viewport } from "../../lib/motion";
 
 const INPUT_CLASS =
-  "w-full rounded-xl border border-white/[0.08] bg-white/[0.02] px-4 py-3.5 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-teal-500/40 focus:bg-white/[0.03] focus:ring-2 focus:ring-teal-500/12";
+  "w-full rounded-xl border border-white/[0.1] bg-white/[0.03] px-4 py-3.5 text-zinc-100 outline-none transition-[border-color,background-color,box-shadow] duration-300 placeholder:text-zinc-500 focus:border-teal-500/40 focus:bg-white/[0.04] focus:ring-2 focus:ring-teal-500/15";
 
 const SUBMIT_BTN_CLASS =
   "inline-flex w-full min-h-[44px] touch-manipulation items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-medium text-zinc-950 shadow-[0_1px_0_0_rgba(255,255,255,0.12)_inset] transition-[box-shadow,background-color,transform,opacity] duration-300 ease-out hover:bg-zinc-50 hover:shadow-[0_12px_40px_-16px_rgba(255,255,255,0.35)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto";
@@ -42,10 +42,8 @@ function ContactLink({ href, icon: Icon, label, children, iconClassName = "" }) 
           <Icon className="h-5 w-5" />
         </span>
         <span className="min-w-0">
-          <span className="block font-mono text-[10px] uppercase tracking-wider text-zinc-600">
-            {label}
-          </span>
-          <span className="block truncate text-sm text-zinc-300 transition-colors group-hover:text-white sm:text-base">
+          <span className="text-label block tracking-wider">{label}</span>
+          <span className="block truncate text-sm text-zinc-200 transition-colors duration-300 group-hover:text-white sm:text-base">
             {children}
           </span>
         </span>
@@ -217,12 +215,10 @@ export default function Contact() {
                   <MapPin className="h-5 w-5" />
                 </span>
                 <span>
-                  <span className="block font-mono text-[10px] uppercase tracking-wider text-zinc-600">
-                    Location
-                  </span>
-                  <span className="text-sm leading-relaxed text-zinc-300 sm:text-base">
+                  <span className="text-label block tracking-wider">Location</span>
+                  <span className="text-sm leading-relaxed text-zinc-200 sm:text-base">
                     Krishnagiri, Tamil Nadu
-                    <span className="mt-0.5 block text-zinc-500">{personal.location}</span>
+                    <span className="mt-0.5 block text-zinc-400">{personal.location}</span>
                   </span>
                 </span>
               </li>
@@ -246,7 +242,7 @@ export default function Contact() {
 
             <form onSubmit={handleSubmit} className="mt-6 space-y-5 sm:space-y-6" noValidate>
               <div>
-                <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-zinc-500">
+                <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-zinc-400">
                   Name
                 </label>
                 <input
@@ -264,7 +260,7 @@ export default function Contact() {
               </div>
 
               <div>
-                <label htmlFor="contact-email" className="mb-2 block text-sm font-medium text-zinc-500">
+                <label htmlFor="contact-email" className="mb-2 block text-sm font-medium text-zinc-400">
                   Email
                 </label>
                 <input
@@ -282,7 +278,7 @@ export default function Contact() {
               </div>
 
               <div>
-                <label htmlFor="contact-message" className="mb-2 block text-sm font-medium text-zinc-500">
+                <label htmlFor="contact-message" className="mb-2 block text-sm font-medium text-zinc-400">
                   Message
                 </label>
                 <textarea

@@ -17,13 +17,9 @@ export default function SectionHeading({
       className={`mb-10 sm:mb-12 md:mb-16 ${className}`}
     >
       <motion.div variants={staggerItem} className="flex items-center gap-3 sm:gap-4">
-        {index && (
-          <span className="font-mono text-[10px] text-zinc-700 sm:text-xs">{index}</span>
-        )}
-        <span className="h-px w-6 bg-white/10 sm:w-8" />
-        <p className="font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-500 sm:text-[11px] sm:tracking-[0.22em]">
-          {label}
-        </p>
+        {index && <span className="text-section-index">{index}</span>}
+        <span className="h-px w-6 bg-white/[0.12] sm:w-8" />
+        <p className="text-label">{label}</p>
       </motion.div>
       <motion.h2 variants={staggerItem} className="heading-section mt-4 max-w-3xl sm:mt-5">
         {title}

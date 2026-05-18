@@ -3,7 +3,7 @@ import { GraduationCap, Building2, MapPin, Sparkles } from "lucide-react";
 import { about } from "../../data/portfolio";
 import SectionHeading from "../ui/SectionHeading";
 import SectionDivider from "../ui/SectionDivider";
-import { ease, staggerContainer, staggerItem, viewport } from "../../lib/motion";
+import { ease, hoverLift, hoverLiftTransition, staggerContainer, staggerItem, viewport } from "../../lib/motion";
 
 const highlightIcons = {
   education: GraduationCap,
@@ -12,9 +12,7 @@ const highlightIcons = {
 };
 
 function SectionLabel({ children }) {
-  return (
-    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-600">{children}</p>
-  );
+  return <p className="text-label">{children}</p>;
 }
 
 function SoftDivider() {
@@ -30,11 +28,11 @@ function FocusBadge({ label, index }) {
   return (
     <motion.li
       variants={staggerItem}
-      whileHover={{ y: -2 }}
-      transition={{ duration: 0.25, ease }}
+      whileHover={hoverLift}
+      transition={hoverLiftTransition}
       className="list-none"
     >
-      <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.07] bg-white/[0.02] px-3 py-1.5 text-xs text-zinc-400 transition-[border-color,box-shadow,color] duration-300 hover:border-teal-500/20 hover:text-zinc-200 hover:shadow-[0_0_20px_-8px_rgba(45,212,191,0.35)]">
+      <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 text-xs text-zinc-300 transition-[border-color,color] duration-300 hover:border-teal-500/25 hover:text-zinc-100">
         {index === 0 && <Sparkles className="h-3 w-3 text-teal-500/60" aria-hidden />}
         {label}
       </span>
@@ -46,9 +44,9 @@ function QuickStat({ stat }) {
   return (
     <motion.div
       variants={staggerItem}
-      whileHover={{ y: -2 }}
-      transition={{ duration: 0.3, ease }}
-      className="rounded-xl border border-white/[0.07] bg-white/[0.02] px-4 py-3.5 transition-[border-color,box-shadow] duration-300 hover:border-teal-500/20 hover:shadow-[0_0_24px_-10px_rgba(45,212,191,0.2)] sm:px-4 sm:py-4"
+      whileHover={hoverLift}
+      transition={hoverLiftTransition}
+      className="card-surface rounded-xl px-4 py-3.5 sm:px-4 sm:py-4 hover:border-teal-500/20"
     >
       <p className="heading-display text-lg text-white sm:text-xl">{stat.value}</p>
       <p className="stat-caption mt-2 leading-snug">{stat.label}</p>
@@ -60,10 +58,10 @@ function MiniHighlight({ item }) {
   return (
     <motion.div
       variants={staggerItem}
-      className="rounded-xl border border-white/[0.06] bg-[#0a0a0c]/80 px-4 py-3.5 transition-colors duration-300 hover:border-white/[0.1] sm:py-4"
+      className="card-surface rounded-xl px-4 py-3.5 sm:py-4"
     >
-      <p className="font-mono text-[10px] uppercase tracking-wider text-zinc-700">{item.label}</p>
-      <p className="mt-1 text-sm font-medium text-zinc-300">{item.value}</p>
+      <p className="text-label tracking-wider">{item.label}</p>
+      <p className="mt-1 text-sm font-medium text-zinc-200">{item.value}</p>
     </motion.div>
   );
 }
@@ -79,10 +77,10 @@ function AboutLeftColumn() {
     >
       <motion.article
         variants={staggerItem}
-        className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5 transition-colors duration-300 hover:border-white/[0.1] sm:p-6"
+        className="card-surface rounded-2xl p-5 sm:p-6"
       >
         <SectionLabel>Introduction</SectionLabel>
-        <p className="mt-3 text-base leading-[1.7] text-zinc-300 sm:text-[1.0625rem] sm:leading-[1.75]">
+        <p className="mt-3 text-base leading-[1.7] text-zinc-200 sm:text-[1.0625rem] sm:leading-[1.75]">
           {about.intro}
         </p>
 
@@ -92,7 +90,7 @@ function AboutLeftColumn() {
         <p className="body-muted mt-3 max-w-[52ch] text-sm leading-[1.75] sm:text-[0.9375rem]">
           {about.journey}
         </p>
-        <p className="mt-4 max-w-[52ch] text-sm leading-relaxed text-zinc-600">{about.closing}</p>
+        <p className="mt-4 max-w-[52ch] text-sm leading-relaxed text-zinc-500">{about.closing}</p>
       </motion.article>
 
       <motion.div variants={staggerItem}>
@@ -144,28 +142,22 @@ function AboutHighlightCard({ item }) {
   return (
     <motion.div
       variants={staggerItem}
-      whileHover={{ y: -3 }}
-      transition={{ duration: 0.35, ease }}
-      className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5 transition-[border-color,box-shadow,background-color] duration-300 hover:border-teal-500/25 hover:bg-white/[0.035] hover:shadow-[0_0_40px_-12px_rgba(45,212,191,0.15)] sm:p-6 ${
+      whileHover={hoverLift}
+      transition={hoverLiftTransition}
+      className={`card-surface group relative flex h-full flex-col overflow-hidden rounded-2xl p-5 hover:border-teal-500/20 sm:p-6 ${
         isCompact ? "lg:flex-none" : "lg:flex-1"
       }`}
     >
-      <div
-        className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-teal-500/[0.06] blur-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        aria-hidden
-      />
       <motion.div
-        className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-teal-500/50 via-teal-500/20 to-transparent opacity-60"
+        className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-teal-500/40 via-teal-500/15 to-transparent"
         aria-hidden
       />
 
-      <div className="mb-3.5 flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.03] text-zinc-500 transition-colors duration-300 group-hover:border-teal-500/20 group-hover:text-teal-400/90 sm:mb-4 sm:h-10 sm:w-10 sm:rounded-xl">
+      <div className="mb-3.5 flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.1] bg-white/[0.04] text-zinc-400 transition-colors duration-300 group-hover:border-teal-500/25 group-hover:text-teal-300 sm:mb-4 sm:h-10 sm:w-10 sm:rounded-xl">
         <Icon className="h-[17px] w-[17px] sm:h-[18px] sm:w-[18px]" aria-hidden />
       </div>
 
-      <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-600">
-        {item.label}
-      </p>
+      <p className="text-label tracking-[0.14em]">{item.label}</p>
       <h3 className="heading-display mt-1.5 text-[0.9375rem] leading-snug text-white sm:mt-2 sm:text-base md:text-lg">
         {item.title}
       </h3>
@@ -173,13 +165,11 @@ function AboutHighlightCard({ item }) {
         <p className="mt-1 text-xs font-medium text-teal-400/75 sm:text-sm">{item.subtitle}</p>
       )}
 
-      <p className="mt-3 text-[0.8125rem] leading-[1.65] text-zinc-500 sm:mt-3.5 sm:text-sm sm:leading-relaxed">
+      <p className="body-muted mt-3 text-[0.8125rem] sm:mt-3.5 sm:text-sm">
         {item.body}
       </p>
       {item.bodySecondary && (
-        <p className="mt-2.5 text-[0.8125rem] leading-[1.65] text-zinc-600 sm:text-sm sm:leading-relaxed">
-          {item.bodySecondary}
-        </p>
+        <p className="body-muted mt-2.5 text-[0.8125rem] sm:text-sm">{item.bodySecondary}</p>
       )}
 
       {item.tags?.length > 0 && (
@@ -187,7 +177,7 @@ function AboutHighlightCard({ item }) {
           {item.tags.map((tag) => (
             <li
               key={tag}
-              className="rounded-md border border-white/[0.06] bg-[#0a0a0c] px-2 py-0.5 font-mono text-[9px] text-zinc-500 transition-colors duration-300 group-hover:border-teal-500/15 group-hover:text-zinc-400 sm:px-2.5 sm:py-1 sm:text-[10px]"
+              className="rounded-md border border-white/[0.08] bg-white/[0.03] px-2 py-0.5 font-mono text-[9px] text-zinc-400 transition-colors duration-300 group-hover:border-teal-500/20 group-hover:text-zinc-300 sm:px-2.5 sm:py-1 sm:text-[10px]"
             >
               {tag}
             </li>
@@ -196,7 +186,7 @@ function AboutHighlightCard({ item }) {
       )}
 
       {item.footer && (
-        <p className="mt-auto border-t border-white/[0.06] pt-3.5 text-[11px] leading-relaxed text-zinc-600 sm:pt-4 sm:text-xs">
+        <p className="mt-auto border-t border-white/[0.08] pt-3.5 text-[11px] leading-relaxed text-zinc-500 sm:pt-4 sm:text-xs">
           {item.footer}
         </p>
       )}

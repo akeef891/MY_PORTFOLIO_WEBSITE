@@ -1,15 +1,15 @@
 import { memo } from "react";
 import { motion } from "framer-motion";
-import { springTap } from "../../lib/motion";
+import { hoverLift, springTap } from "../../lib/motion";
 
 const variants = {
   primary:
-    "bg-white text-zinc-950 hover:bg-zinc-50 active:bg-zinc-100 shadow-[0_1px_0_0_rgba(255,255,255,0.12)_inset] hover:shadow-[0_12px_40px_-16px_rgba(255,255,255,0.35)]",
+    "bg-white text-zinc-950 hover:bg-zinc-50 active:bg-zinc-100 shadow-[0_1px_0_0_rgba(255,255,255,0.14)_inset] hover:shadow-[0_10px_32px_-14px_rgba(255,255,255,0.28)]",
   outline:
-    "border border-white/10 bg-white/[0.02] text-zinc-300 hover:border-white/18 hover:bg-white/[0.05] hover:text-white active:bg-white/[0.08]",
+    "border border-white/[0.12] bg-white/[0.03] text-zinc-200 hover:border-white/20 hover:bg-white/[0.06] hover:text-white active:bg-white/[0.08]",
   secondary:
-    "glass text-zinc-200 hover:border-white/12 hover:bg-white/[0.04]",
-  ghost: "text-zinc-500 hover:bg-white/5 hover:text-white",
+    "glass text-zinc-200 hover:border-white/14 hover:bg-white/[0.05]",
+  ghost: "text-zinc-400 hover:bg-white/[0.05] hover:text-zinc-100",
 };
 
 function Button({
@@ -62,7 +62,7 @@ function Button({
         target={isHttp ? "_blank" : undefined}
         rel={isHttp ? "noopener noreferrer" : undefined}
         onClick={disabled ? (e) => e.preventDefault() : undefined}
-        whileHover={disabled ? undefined : { y: -2 }}
+        whileHover={disabled ? undefined : hoverLift}
         whileTap={disabled ? undefined : { scale: 0.98, y: 0 }}
         transition={springTap}
         className={classes}
@@ -79,7 +79,7 @@ function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      whileHover={disabled ? undefined : { y: -2 }}
+      whileHover={disabled ? undefined : hoverLift}
       whileTap={disabled ? undefined : { scale: 0.98, y: 0 }}
       transition={springTap}
       className={classes}

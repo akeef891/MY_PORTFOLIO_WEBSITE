@@ -7,7 +7,8 @@ import SectionHeading from "../ui/SectionHeading";
 import SectionDivider from "../ui/SectionDivider";
 import { ease, staggerContainer, staggerItem, viewport } from "../../lib/motion";
 
-function TaskQuestMockup() {
+/** Featured project visual — dev / build metaphor (not a literal app UI clone) */
+function FeaturedProjectMockup() {
   return (
     <div className="flex h-full min-h-[200px] items-center justify-center p-4 sm:min-h-[260px] sm:p-8 md:p-10">
       <motion.div
@@ -15,46 +16,34 @@ function TaskQuestMockup() {
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease }}
-        className="w-full max-w-md overflow-hidden rounded-xl border border-white/[0.09] bg-[#080a09]/95 shadow-2xl backdrop-blur-md"
+        className="w-full max-w-md overflow-hidden rounded-xl border border-white/[0.09] bg-[#0c0d0f]/95 shadow-2xl backdrop-blur-md"
       >
         <div className="flex items-center gap-2 border-b border-white/[0.06] px-3 py-2.5 sm:px-4 sm:py-3">
-          <span className="h-2 w-2 rounded-full bg-emerald-500/50" />
-          <span className="font-mono text-[9px] text-zinc-500 sm:text-[10px]">taskquest.app</span>
+          <span className="flex gap-1">
+            <span className="h-2 w-2 rounded-full bg-red-500/40" />
+            <span className="h-2 w-2 rounded-full bg-amber-500/40" />
+            <span className="h-2 w-2 rounded-full bg-emerald-500/50" />
+          </span>
+          <span className="font-mono text-[9px] text-zinc-400 sm:text-[10px]">vite build · Task Quest</span>
         </div>
-        <div className="grid grid-cols-5 gap-2 p-3 sm:gap-3 sm:p-4">
-          <div className="col-span-2 space-y-1.5">
-            {["Today", "Work", "Personal"].map((l, i) => (
-              <div
-                key={l}
-                className={`rounded-md px-2 py-1.5 text-[9px] sm:text-[10px] ${
-                  i === 0 ? "bg-teal-500/10 text-teal-300/90" : "text-zinc-600"
-                }`}
-              >
-                {l}
-              </div>
-            ))}
-          </div>
-          <div className="col-span-3 space-y-1.5 sm:space-y-2">
-            {["Ship portfolio polish", "Task filters UI", "Deploy v1"].map((t, i) => (
-              <div
-                key={t}
-                className="flex items-center gap-2 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2 py-1.5 sm:py-2"
-              >
-                <span
-                  className={`h-2.5 w-2.5 shrink-0 rounded border sm:h-3 sm:w-3 ${
-                    i === 0 ? "border-teal-500/40 bg-teal-500/20" : "border-zinc-700"
-                  }`}
-                />
-                <span className="text-[9px] text-zinc-400 sm:text-[10px]">{t}</span>
-              </div>
-            ))}
-          </div>
+        <div className="p-3 font-mono text-[9px] leading-relaxed text-zinc-500 sm:p-4 sm:text-[10px] sm:leading-relaxed">
+          <p className="text-zinc-600">
+            <span className="text-teal-500/90">➜</span> <span className="text-zinc-400">portfolio</span> npm run build
+          </p>
+          <p className="mt-2 text-emerald-500/85">✓</p>
+          <p className="pl-3 text-zinc-500">2180 modules transformed</p>
+          <p className="mt-1.5 text-emerald-500/85">✓</p>
+          <p className="pl-3 text-zinc-500">dist/index.html · 1.44 kB</p>
+          <p className="mt-1.5 text-emerald-500/85">✓</p>
+          <p className="pl-3 text-zinc-500">dist/assets/index.css · 70.77 kB</p>
+          <p className="mt-3 border-t border-white/[0.05] pt-2.5 text-teal-400/90">
+            ✓ built in 3.65s — <span className="text-zinc-500">React · local storage · dark UI</span>
+          </p>
         </div>
       </motion.div>
     </div>
   );
 }
-
 function ProjectPreview({ project }) {
   if (project.image) {
     return (
@@ -71,7 +60,7 @@ function ProjectPreview({ project }) {
   if (project.highlight) {
     return (
       <div className={`relative h-full w-full bg-gradient-to-br ${project.accent}`}>
-        <TaskQuestMockup />
+        <FeaturedProjectMockup />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050506] via-[#050506]/25 to-transparent" />
       </div>
     );
@@ -94,7 +83,7 @@ function TechBadge({ tag, index }) {
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.04, duration: 0.35, ease }}
-      className="rounded-full border border-white/[0.08] bg-white/[0.03] px-2.5 py-1 font-mono text-[10px] text-zinc-500 transition-all duration-300 group-hover:border-teal-500/20 group-hover:text-zinc-300"
+      className="rounded-full border border-white/[0.1] bg-white/[0.04] px-2.5 py-1 font-mono text-[10px] text-zinc-400 transition-all duration-300 group-hover:border-teal-500/25 group-hover:text-zinc-200"
     >
       {tag}
     </motion.span>
@@ -119,7 +108,7 @@ function ProjectActions({ project, className = "" }) {
         whileHover={{ y: -1 }}
         whileTap={{ scale: 0.98 }}
         transition={{ type: "spring", stiffness: 400, damping: 28 }}
-        className="inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/[0.02] px-4 py-2.5 text-xs font-medium text-zinc-400 transition-colors hover:border-white/18 hover:text-white sm:flex-none"
+        className="inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-lg border border-white/[0.12] bg-white/[0.03] px-4 py-2.5 text-xs font-medium text-zinc-300 transition-colors duration-300 hover:border-white/20 hover:bg-white/[0.05] hover:text-white sm:flex-none"
       >
         <GitHubIcon className="h-3.5 w-3.5" />
         GitHub
@@ -152,7 +141,7 @@ function FeaturedProject({ project }) {
       onMouseMove={onMove}
       className="group project-card-glow"
     >
-      <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.015]">
+      <div className="card-surface overflow-hidden rounded-2xl">
         <div className="relative aspect-[4/3] overflow-hidden bg-[#0a0a0c] sm:aspect-[16/10] md:aspect-[2/1]">
           <ProjectPreview project={project} />
           <motion.div
@@ -163,7 +152,7 @@ function FeaturedProject({ project }) {
             <span className="rounded-full border border-teal-500/30 bg-teal-500/10 px-2.5 py-1 font-mono text-[9px] font-medium uppercase tracking-wider text-teal-300/95 sm:text-[10px]">
               Flagship
             </span>
-            <span className="font-mono text-[10px] text-zinc-600">01</span>
+            <span className="text-section-index">01</span>
           </div>
           <div className="absolute inset-x-0 bottom-0 hidden bg-gradient-to-t from-[#050506] via-[#050506]/80 to-transparent p-5 pt-16 opacity-0 transition-opacity duration-400 group-hover:opacity-100 md:block">
             <ProjectActions project={project} className="justify-end" />
@@ -176,7 +165,7 @@ function FeaturedProject({ project }) {
               <h3 className="heading-display text-xl text-white sm:text-2xl md:text-3xl lg:text-[2.25rem]">
                 {project.title}
               </h3>
-              <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-zinc-700 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-teal-400/80 sm:h-5 sm:w-5" />
+              <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-zinc-500 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-teal-400 sm:h-5 sm:w-5" />
             </div>
             <p className="body-muted max-w-2xl text-sm sm:text-base">{project.description}</p>
           </div>
@@ -200,10 +189,10 @@ function ProjectCard({ project, index }) {
 
   return (
     <motion.article variants={staggerItem} className="group project-card-glow h-full">
-      <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.015]">
+      <div className="card-surface flex h-full flex-col overflow-hidden rounded-2xl">
         <div className="relative aspect-[16/10] overflow-hidden bg-[#0a0a0c]">
           <ProjectPreview project={project} />
-          <span className="absolute right-3 top-3 font-mono text-[10px] text-zinc-700 sm:right-4 sm:top-4">
+          <span className="text-section-index absolute right-3 top-3 sm:right-4 sm:top-4">
             {num}
           </span>
         </div>

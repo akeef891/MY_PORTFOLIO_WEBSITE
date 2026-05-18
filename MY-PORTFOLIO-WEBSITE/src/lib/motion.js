@@ -10,13 +10,17 @@ export const viewport = { once: true, margin: "-60px" };
 export const viewportTight = { once: true, margin: "-40px" };
 
 export const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 14 },
   show: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { ...transitionBase, delay: 0.12 + i * 0.06 },
+    transition: { ...transitionBase, delay: 0.1 + i * 0.05 },
   }),
 };
+
+/** Subtle hover lift — use on cards and interactive blocks */
+export const hoverLift = { y: -2 };
+export const hoverLiftTransition = { duration: 0.35, ease };
 
 export const staggerContainer = {
   hidden: {},
@@ -26,7 +30,7 @@ export const staggerContainer = {
 };
 
 export const staggerItem = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 12 },
   show: {
     opacity: 1,
     y: 0,

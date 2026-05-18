@@ -36,7 +36,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, scrollTo }) {
                     <button
                       type="button"
                       onClick={() => scrollTo(link.id)}
-                      className="rounded-md px-1 py-2 text-sm text-zinc-500 transition-colors hover:text-white"
+                      className="rounded-md px-1 py-2 text-sm text-zinc-400 transition-colors duration-300 hover:text-zinc-100"
                     >
                       {link.label}
                     </button>
@@ -47,7 +47,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, scrollTo }) {
               <button
                 type="button"
                 onClick={() => scrollTo("contact")}
-                className="hidden min-h-[44px] rounded-lg border border-white/10 bg-white/[0.03] px-4 py-2 text-sm font-medium text-zinc-300 transition-colors hover:border-white/20 hover:text-white md:inline-flex md:items-center"
+                className="hidden min-h-[44px] rounded-lg border border-white/[0.12] bg-white/[0.04] px-4 py-2 text-sm font-medium text-zinc-200 transition-[border-color,color,background-color] duration-300 hover:border-white/20 hover:bg-white/[0.06] hover:text-white md:inline-flex md:items-center"
               >
                 Let&apos;s Talk
               </button>

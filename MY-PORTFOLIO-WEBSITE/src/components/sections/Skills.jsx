@@ -4,7 +4,7 @@ import SectionHeading from "../ui/SectionHeading";
 
 const { groups: skillGroups, description: skillsDescription } = skills;
 import SectionDivider from "../ui/SectionDivider";
-import { ease, staggerContainer, staggerItem, viewport } from "../../lib/motion";
+import { ease, hoverLift, hoverLiftTransition, staggerContainer, staggerItem, viewport } from "../../lib/motion";
 
 function SkillBadge({ name, delay }) {
   return (
@@ -13,8 +13,9 @@ function SkillBadge({ name, delay }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.35, delay, ease }}
-      whileHover={{ y: -2 }}
-      className="list-none rounded-lg border border-white/[0.06] bg-[#0a0a0c] px-3 py-2 text-sm text-zinc-400 transition-colors duration-300 hover:border-teal-500/20 hover:text-zinc-200"
+      whileHover={hoverLift}
+      transition={hoverLiftTransition}
+      className="list-none rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-sm text-zinc-300 transition-colors duration-300 hover:border-teal-500/25 hover:text-zinc-100"
     >
       {name}
     </motion.li>
@@ -44,15 +45,13 @@ export default function Skills() {
             <motion.div
               key={group.category}
               variants={staggerItem}
-              className={`relative rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 transition-colors duration-300 hover:border-white/[0.1] sm:p-6 md:p-7 ${
+              className={`card-surface relative rounded-2xl p-5 sm:p-6 md:p-7 ${
                 i === 1 ? "md:translate-y-4" : ""
               }`}
             >
-              <span className="font-mono text-[10px] text-zinc-700">
-                {String(i + 1).padStart(2, "0")}
-              </span>
+              <span className="text-section-index">{String(i + 1).padStart(2, "0")}</span>
               <h3 className="heading-display mt-3 text-lg text-white">{group.category}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-zinc-600">{group.description}</p>
+              <p className="body-muted mt-2 text-sm">{group.description}</p>
               <ul className="mt-5 flex flex-wrap gap-2 sm:mt-6">
                 {group.items.map((skill, j) => (
                   <SkillBadge key={skill} name={skill} delay={j * 0.04} />

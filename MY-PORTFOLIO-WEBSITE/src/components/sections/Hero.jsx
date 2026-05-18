@@ -9,7 +9,7 @@ import HeroBackground from "../ui/HeroBackground";
 import AnimatedName from "../ui/AnimatedName";
 import HeroVisual from "../ui/HeroVisual";
 import { scrollToSection } from "../../lib/scroll";
-import { fadeUp } from "../../lib/motion";
+import { fadeUp, hoverLift, hoverLiftTransition } from "../../lib/motion";
 
 export default function Hero() {
   const scrollToProjects = useCallback(() => {
@@ -33,9 +33,9 @@ export default function Hero() {
               animate="show"
               className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-2 sm:mb-8"
             >
-              <span className="font-mono text-[10px] text-zinc-700">01</span>
-              <span className="hidden h-px w-8 bg-white/10 sm:block" />
-              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500 sm:text-[11px]">
+              <span className="text-section-index">01</span>
+              <span className="hidden h-px w-8 bg-white/[0.12] sm:block" />
+              <span className="text-label normal-case tracking-[0.14em] sm:tracking-[0.16em]">
                 {personal.role} · {personal.subtitle}
               </span>
             </motion.div>
@@ -49,7 +49,7 @@ export default function Hero() {
               variants={fadeUp}
               initial="hidden"
               animate="show"
-              className="heading-display mt-5 text-[clamp(1.0625rem,3.5vw,1.5rem)] leading-snug text-zinc-300 sm:mt-8 md:text-2xl md:leading-[1.35]"
+              className="heading-display mt-5 text-[clamp(1.0625rem,3.5vw,1.5rem)] leading-snug text-zinc-200 sm:mt-8 md:text-2xl md:leading-[1.35]"
             >
               {personal.headline}
             </motion.p>
@@ -95,14 +95,14 @@ export default function Hero() {
               variants={fadeUp}
               initial="hidden"
               animate="show"
-              className="mt-8 grid grid-cols-3 gap-2 border-t border-white/[0.06] pt-6 sm:mt-12 sm:gap-6 sm:pt-8"
+              className="mt-8 grid grid-cols-3 gap-2 border-t border-white/[0.08] pt-6 sm:mt-12 sm:gap-6 sm:pt-8"
             >
               {personal.stats.map((stat) => (
                 <motion.div
                   key={stat.label}
                   className="stat-block min-w-0 px-0.5"
-                  whileHover={{ y: -2 }}
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={hoverLift}
+                  transition={hoverLiftTransition}
                 >
                   <p className="heading-display text-[clamp(1rem,2.6vw,1.5rem)] leading-none sm:text-xl md:text-2xl">
                     {stat.value}
@@ -128,16 +128,11 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.9 }}
-        className="absolute bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-1 text-zinc-700 transition-colors hover:text-zinc-500"
+        className="group absolute bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-1.5 text-zinc-500 transition-colors duration-300 hover:text-zinc-300"
         aria-label="Scroll to about section"
       >
         <span className="font-mono text-[9px] uppercase tracking-widest">Scroll</span>
-        <motion.span
-          animate={{ y: [0, 4, 0] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <ArrowDown className="h-3.5 w-3.5" />
-        </motion.span>
+        <ArrowDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5" />
       </motion.a>
     </section>
   );
