@@ -95,19 +95,19 @@ export default function Hero() {
               variants={fadeUp}
               initial="hidden"
               animate="show"
-              className="mt-8 grid grid-cols-3 gap-3 border-t border-white/[0.06] pt-7 sm:mt-12 sm:gap-8 sm:pt-9"
+              className="mt-8 grid grid-cols-3 gap-2 border-t border-white/[0.06] pt-6 sm:mt-12 sm:gap-6 sm:pt-8"
             >
               {personal.stats.map((stat) => (
                 <motion.div
                   key={stat.label}
-                  className="stat-block min-w-0 px-0.5 sm:px-1"
+                  className="stat-block min-w-0 px-0.5"
                   whileHover={{ y: -2 }}
                   transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <p className="heading-display text-[clamp(1.125rem,3.2vw,1.875rem)] leading-none sm:text-2xl md:text-3xl">
+                  <p className="heading-display text-[clamp(1rem,2.6vw,1.5rem)] leading-none sm:text-xl md:text-2xl">
                     {stat.value}
                   </p>
-                  <p className="stat-caption mt-2.5 max-w-[11rem] sm:mt-3">{stat.label}</p>
+                  <p className="stat-caption mt-2 max-w-[10rem] sm:mt-2">{stat.label}</p>
                 </motion.div>
               ))}
             </motion.div>
