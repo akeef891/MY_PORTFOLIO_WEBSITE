@@ -51,7 +51,7 @@ function QuickStat({ stat }) {
       className="rounded-xl border border-white/[0.07] bg-white/[0.02] px-4 py-3.5 transition-[border-color,box-shadow] duration-300 hover:border-teal-500/20 hover:shadow-[0_0_24px_-10px_rgba(45,212,191,0.2)] sm:px-4 sm:py-4"
     >
       <p className="heading-display text-lg text-white sm:text-xl">{stat.value}</p>
-      <p className="mt-1 text-[11px] leading-snug text-zinc-600 sm:text-xs">{stat.label}</p>
+      <p className="stat-caption mt-2 leading-snug">{stat.label}</p>
     </motion.div>
   );
 }
