@@ -36,7 +36,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, scrollTo }) {
                     <button
                       type="button"
                       onClick={() => scrollTo(link.id)}
-                      className="rounded-md px-1 py-2 text-sm text-zinc-400 transition-colors duration-300 hover:text-zinc-100"
+                      className="interactive-tap rounded-md px-1 py-2 text-sm text-zinc-400 transition-colors duration-300 hover:text-zinc-100 active:text-teal-300/90"
                     >
                       {link.label}
                     </button>
@@ -47,7 +47,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, scrollTo }) {
               <button
                 type="button"
                 onClick={() => scrollTo("lets-connect")}
-                className="hidden min-h-[44px] rounded-lg border border-white/[0.12] bg-white/[0.04] px-4 py-2 text-sm font-medium text-zinc-200 transition-[border-color,color,background-color] duration-300 hover:border-white/20 hover:bg-white/[0.06] hover:text-white md:inline-flex md:items-center"
+                className="interactive-tap hidden min-h-[44px] rounded-lg border border-white/[0.12] bg-white/[0.04] px-4 py-2 text-sm font-medium text-zinc-200 transition-[border-color,color,background-color,box-shadow] duration-300 hover:border-teal-500/30 hover:bg-white/[0.06] hover:text-white hover:shadow-[0_0_24px_-10px_rgba(45,212,191,0.2)] active:scale-[0.98] md:inline-flex md:items-center"
               >
                 Let&apos;s Talk
               </button>
@@ -92,7 +92,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, scrollTo }) {
                   transition={{ delay: 0.04 + i * 0.04, ease }}
                   type="button"
                   onClick={() => scrollTo(link.id)}
-                  className="min-h-[48px] rounded-lg px-4 py-3 text-left text-base font-medium text-zinc-300 transition-colors hover:bg-white/[0.04] hover:text-white"
+                  className="interactive-tap min-h-[48px] rounded-lg px-4 py-3 text-left text-base font-medium text-zinc-300 transition-colors hover:bg-white/[0.04] hover:text-white active:text-teal-300/90"
                 >
                   {link.label}
                 </motion.button>

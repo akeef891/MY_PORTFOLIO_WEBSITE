@@ -14,7 +14,7 @@ const INPUT_CLASS =
   "w-full rounded-xl border border-white/[0.1] bg-white/[0.03] px-4 py-3.5 text-zinc-100 outline-none transition-[border-color,background-color,box-shadow] duration-300 placeholder:text-zinc-500 focus:border-teal-500/40 focus:bg-white/[0.04] focus:ring-2 focus:ring-teal-500/15";
 
 const SUBMIT_BTN_CLASS =
-  "inline-flex w-full min-h-[44px] touch-manipulation items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-medium text-zinc-950 shadow-[0_1px_0_0_rgba(255,255,255,0.12)_inset] transition-[box-shadow,background-color,transform,opacity] duration-300 ease-out hover:bg-zinc-50 hover:shadow-[0_12px_40px_-16px_rgba(255,255,255,0.35)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto";
+  "interactive-tap inline-flex w-full min-h-[44px] touch-manipulation items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-medium text-zinc-950 shadow-[0_1px_0_0_rgba(255,255,255,0.12)_inset] transition-[box-shadow,background-color,transform,opacity] duration-300 ease-out hover:bg-zinc-50 hover:shadow-[0_12px_40px_-16px_rgba(255,255,255,0.35)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto";
 
 function ContactBackground() {
   return (

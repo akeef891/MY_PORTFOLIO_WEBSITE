@@ -24,7 +24,7 @@ function Button({
   disabled = false,
   ...props
 }) {
-  const classes = `inline-flex w-full min-h-[44px] touch-manipulation items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-medium transition-[box-shadow,background-color,border-color,color,opacity] duration-300 ease-out sm:w-auto disabled:pointer-events-none disabled:opacity-50 ${variants[variant]} ${className}`;
+  const classes = `interactive-tap inline-flex w-full min-h-[44px] touch-manipulation items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-medium transition-[box-shadow,background-color,border-color,color,opacity] duration-300 ease-out sm:w-auto disabled:pointer-events-none disabled:opacity-50 ${variants[variant]} ${className}`;
 
   const content = (
     <>

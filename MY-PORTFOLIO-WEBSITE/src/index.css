@@ -514,9 +514,79 @@
   will-change: opacity;
 }
 
+/* Back to top — idle pulse + fingerprint-style click rings */
+@keyframes scroll-top-idle-ring {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1.14);
+    opacity: 0.65;
+  }
+}
+
+.scroll-top-idle-ring {
+  border: 1px solid rgba(45, 212, 191, 0.35);
+  animation: scroll-top-idle-ring 2.8s ease-in-out infinite;
+}
+
+.scroll-top-glow {
+  background: radial-gradient(circle, rgba(45, 212, 191, 0.12) 0%, transparent 70%);
+  opacity: 0.85;
+}
+
+@keyframes scroll-top-fingerprint {
+  0% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.scroll-top-burst-wrap {
+  display: block;
+}
+
+.scroll-top-burst {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(45, 212, 191, 0.55);
+  animation: scroll-top-fingerprint 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.scroll-top-burst-2 {
+  border-style: dashed;
+  border-color: rgba(45, 212, 191, 0.4);
+  animation-delay: 0.07s;
+}
+
+.scroll-top-burst-3 {
+  border-width: 1px;
+  border-color: rgba(94, 234, 212, 0.25);
+  animation-delay: 0.14s;
+  animation-duration: 0.85s;
+}
+
+/* Lightweight tap feedback — transform only */
+.interactive-tap {
+  transition: transform 0.22s var(--ease-premium), box-shadow 0.22s var(--ease-premium);
+}
+
+.interactive-tap:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-glow-pulse,
-  .animate-grid-drift {
+  .animate-grid-drift,
+  .scroll-top-idle-ring,
+  .scroll-top-burst {
     animation: none !important;
   }
 
@@ -527,5 +597,9 @@
 
   main > section {
     content-visibility: visible;
+  }
+
+  .interactive-tap:active:not(:disabled) {
+    transform: none;
   }
 }
