@@ -45,3 +45,46 @@ export const reducedMotionVariants = {
 };
 
 export const springTap = { type: "spring", stiffness: 400, damping: 28 };
+
+/** Hero copy — staggered entrance on first paint */
+export const heroStagger = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.09, delayChildren: 0.12 },
+  },
+};
+
+export const heroItem = {
+  hidden: { opacity: 0, y: 22 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.72, ease },
+  },
+};
+
+export const heroWordStagger = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.045, delayChildren: 0.05 },
+  },
+};
+
+export const heroWord = {
+  hidden: { opacity: 0, y: 14 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease },
+  },
+};
+
+export const heroNameLine = {
+  hidden: { opacity: 0, y: 36, clipPath: "inset(100% 0 0 0)" },
+  show: {
+    opacity: 1,
+    y: 0,
+    clipPath: "inset(0% 0 0 0)",
+    transition: { duration: 0.85, ease },
+  },
+};
