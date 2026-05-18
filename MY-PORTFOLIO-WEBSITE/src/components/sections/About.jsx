@@ -61,7 +61,7 @@ function MiniHighlight({ item }) {
       className="card-surface rounded-xl px-4 py-3.5 sm:py-4"
     >
       <p className="text-label tracking-wider">{item.label}</p>
-      <p className="mt-1 text-sm font-medium text-zinc-200">{item.value}</p>
+      <p className="copy-text mt-1 text-sm font-medium text-zinc-200">{item.value}</p>
     </motion.div>
   );
 }
@@ -80,7 +80,7 @@ function AboutLeftColumn() {
         className="card-surface rounded-2xl p-5 sm:p-6"
       >
         <SectionLabel>Introduction</SectionLabel>
-        <p className="mt-3 text-base leading-[1.7] text-zinc-200 sm:text-[1.0625rem] sm:leading-[1.75]">
+        <p className="copy-text mt-3 text-base leading-[1.7] text-zinc-200 sm:text-[1.0625rem] sm:leading-[1.75]">
           {about.intro}
         </p>
 
@@ -90,7 +90,9 @@ function AboutLeftColumn() {
         <p className="body-muted mt-3 max-w-[52ch] text-sm leading-[1.75] sm:text-[0.9375rem]">
           {about.journey}
         </p>
-        <p className="mt-4 max-w-[52ch] text-sm leading-relaxed text-zinc-500">{about.closing}</p>
+        <p className="copy-text copy-text--muted mt-4 max-w-[52ch] text-sm leading-relaxed">
+          {about.closing}
+        </p>
       </motion.article>
 
       <motion.div variants={staggerItem}>

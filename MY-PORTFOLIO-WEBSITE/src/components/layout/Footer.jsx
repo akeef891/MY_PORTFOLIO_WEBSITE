@@ -8,8 +8,8 @@ export default function Footer() {
     <footer className="relative border-t border-white/[0.08] pb-[max(2rem,env(safe-area-inset-bottom))] pt-8 sm:pt-10">
       <div className="section-container">
         <div className="flex w-full flex-col-reverse items-stretch gap-5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-          <div className="min-w-0 flex-1 text-center text-sm text-zinc-500 sm:text-left">
-            <p>
+          <div className="min-w-0 flex-1 text-center sm:text-left">
+            <p className="copy-text copy-text--muted text-sm">
               © {year} {personal.name}
               <span className="hidden sm:inline"> · </span>
               <span className="block sm:inline">Crafted with React & Framer Motion</span>
