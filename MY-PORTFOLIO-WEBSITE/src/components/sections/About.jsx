@@ -3,7 +3,7 @@ import { GraduationCap, Building2, MapPin, Sparkles } from "lucide-react";
 import { about } from "../../data/portfolio";
 import SectionHeading from "../ui/SectionHeading";
 import SectionDivider from "../ui/SectionDivider";
-import { ease, hoverLift, hoverLiftTransition, staggerContainer, staggerItem, viewport } from "../../lib/motion";
+import { ease, hoverLift, hoverLiftTransition, staggerContainer, staggerItem, tapLift, viewport } from "../../lib/motion";
 
 const highlightIcons = {
   education: GraduationCap,
@@ -29,6 +29,7 @@ function FocusBadge({ label, index }) {
     <motion.li
       variants={staggerItem}
       whileHover={hoverLift}
+      whileTap={tapLift}
       transition={hoverLiftTransition}
       className="list-none"
     >
@@ -45,6 +46,7 @@ function QuickStat({ stat }) {
     <motion.div
       variants={staggerItem}
       whileHover={hoverLift}
+      whileTap={tapLift}
       transition={hoverLiftTransition}
       className="card-surface rounded-xl px-4 py-3.5 sm:px-4 sm:py-4 hover:border-teal-500/20"
     >
@@ -145,6 +147,7 @@ function AboutHighlightCard({ item }) {
     <motion.div
       variants={staggerItem}
       whileHover={hoverLift}
+      whileTap={tapLift}
       transition={hoverLiftTransition}
       className={`card-surface group relative flex h-full flex-col overflow-hidden rounded-2xl p-5 hover:border-teal-500/20 sm:p-6 ${
         isCompact ? "lg:flex-none" : "lg:flex-1"

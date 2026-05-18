@@ -4,7 +4,7 @@ import SectionHeading from "../ui/SectionHeading";
 
 const { groups: skillGroups, description: skillsDescription } = skills;
 import SectionDivider from "../ui/SectionDivider";
-import { ease, hoverLift, hoverLiftTransition, staggerContainer, staggerItem, viewport } from "../../lib/motion";
+import { ease, hoverLift, hoverLiftTransition, staggerContainer, staggerItem, tapLift, viewport } from "../../lib/motion";
 
 function SkillBadge({ name, delay }) {
   return (
@@ -14,6 +14,7 @@ function SkillBadge({ name, delay }) {
       viewport={{ once: true }}
       transition={{ duration: 0.35, delay, ease }}
       whileHover={{ ...hoverLift, transition: hoverLiftTransition }}
+      whileTap={tapLift}
       className="list-none rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-sm text-zinc-300 transition-colors duration-300 hover:border-teal-500/25 hover:text-zinc-100"
     >
       {name}

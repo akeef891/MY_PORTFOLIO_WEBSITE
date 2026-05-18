@@ -27,6 +27,7 @@ export default function HeroHeadline({ text, className = "" }) {
         <motion.span
           key={`${word}-${i}`}
           variants={heroWord}
+          whileTap={{ scale: 0.98, y: -1 }}
           className="hero-headline-word mr-[0.32em] inline-block last:mr-0"
         >
           {word}

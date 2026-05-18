@@ -38,6 +38,7 @@ export default function AnimatedName({ firstName, lastName }) {
           initial="hidden"
           animate="show"
           transition={{ delay: 0.2 }}
+          whileTap={{ scale: 0.99 }}
           className="hero-name-first block text-white"
         >
           {firstName}
@@ -47,6 +48,7 @@ export default function AnimatedName({ firstName, lastName }) {
           initial="hidden"
           animate="show"
           transition={{ delay: 0.32 }}
+          whileTap={{ scale: 0.99 }}
           className="hero-name-accent mt-1 block text-accent sm:mt-0 sm:inline sm:pl-3"
         >
           {lastName}

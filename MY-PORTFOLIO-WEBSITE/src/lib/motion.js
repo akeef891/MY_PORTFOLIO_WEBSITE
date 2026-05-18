@@ -21,6 +21,8 @@ export const fadeUp = {
 /** Subtle hover lift — use on cards and interactive blocks */
 export const hoverLift = { y: -2 };
 export const hoverLiftTransition = { duration: 0.35, ease };
+/** Touch-friendly lift — use with whileTap on cards and text blocks */
+export const tapLift = { y: -2, scale: 0.99 };
 
 export const staggerContainer = {
   hidden: {},
@@ -79,12 +81,12 @@ export const heroWord = {
   },
 };
 
+/** Y-reveal only — reliable on iOS/Android (clip-path animates poorly on some mobile browsers) */
 export const heroNameLine = {
-  hidden: { opacity: 0, y: 36, clipPath: "inset(100% 0 0 0)" },
+  hidden: { opacity: 0, y: 32 },
   show: {
     opacity: 1,
     y: 0,
-    clipPath: "inset(0% 0 0 0)",
     transition: { duration: 0.85, ease },
   },
 };
