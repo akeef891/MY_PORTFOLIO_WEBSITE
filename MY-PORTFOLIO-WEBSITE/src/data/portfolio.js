@@ -1,3 +1,6 @@
+import taskQuestImage from "../assets/taskquest-dashboard.png";
+import internDashboardImage from "../assets/intern-dashboard.png";
+
 export const personal = {
   name: "Mohammed Akeef K",
   role: "Frontend Developer",
@@ -16,7 +19,7 @@ export const personal = {
   intro:
     "I'm a first-year BCA student at Arignar Anna College, Krishnagiri, learning frontend development through real projects. I enjoy turning ideas into polished UIs with React, TypeScript, and Tailwind — and I'm actively looking for internships to grow alongside a team.",
   stats: [
-    { value: "3+", label: "Projects built" },
+    { value: "2", label: "Production apps" },
     { value: "BCA", label: "Year 1 student" },
     { value: "2026", label: "Open to intern" },
   ],
@@ -40,7 +43,7 @@ export const about = {
     "Responsive UI",
   ],
   quickStats: [
-    { value: "4+", label: "Projects built" },
+    { value: "2", label: "Shipped apps" },
     { value: "React", label: "+ TypeScript" },
     { value: "Frontend", label: "Focused" },
     { value: "UI", label: "Responsive enthusiast" },
@@ -125,40 +128,39 @@ export const projects = [
     id: "task-quest",
     title: "Task Quest",
     description:
-      "A productivity web app for managing tasks with priorities, categories, and local storage. Built to practice React state, component structure, and a focused dark UI.",
-    tags: ["React", "JavaScript", "CSS", "Local Storage"],
-    liveUrl: "#",
-    githubUrl: "https://github.com/akeef891",
-    featured: true,
+      "Gamified productivity and task management application built with React, TypeScript, Tailwind CSS, and Firebase. Includes authentication, responsive UI, task organization, and modern frontend architecture.",
+    tags: ["React", "TypeScript", "Tailwind CSS", "Firebase", "Framer Motion"],
+    features: [
+      "Firebase Authentication",
+      "Responsive Dashboard",
+      "Task Organization",
+      "Smooth UI Animations",
+    ],
+    liveUrl: "https://task-manageer.netlify.app/",
+    githubUrl: "https://github.com/akeef891/Task-Quest",
     highlight: true,
-    image: null,
-    accent: "from-emerald-950/80 via-[#0c1210] to-cyan-950/60",
+    image: taskQuestImage,
+    accent: "from-emerald-950/90 via-[#0a1210] to-teal-950/70",
+    preview: "task-quest",
   },
   {
-    id: "portfolio",
-    title: "Developer Portfolio",
+    id: "intern-dashboard",
+    title: "Intern Dashboard",
     description:
-      "This site — React, Vite, Tailwind, and Framer Motion. Built to showcase my work and practice premium layout, motion, and responsive design.",
-    tags: ["React", "Vite", "Tailwind", "Framer Motion"],
-    liveUrl: "#",
-    githubUrl: "https://github.com/akeef891",
-    featured: false,
+      "Modern internship management dashboard with announcements, leaderboard, event tracking, admin panels, and responsive UI components built for internship workflow management.",
+    tags: ["React", "JavaScript", "Tailwind CSS", "Firebase"],
+    features: [
+      "Dashboard UI",
+      "Internship Workflow",
+      "Admin Panels",
+      "Responsive Design",
+    ],
+    liveUrl: "https://intern-prohub.netlify.app/",
+    githubUrl: "https://github.com/akeef891/Intern-Dashboard",
     highlight: false,
-    image: null,
-    accent: "from-zinc-900 via-[#0a0a0c] to-zinc-800",
-  },
-  {
-    id: "landing",
-    title: "SaaS Landing Page",
-    description:
-      "A marketing-style landing page with scroll sections and a mobile-first layout — practice for typography, spacing, and conversion-focused structure.",
-    tags: ["React", "Tailwind", "Responsive"],
-    liveUrl: "#",
-    githubUrl: "https://github.com/akeef891",
-    featured: false,
-    highlight: false,
-    image: null,
-    accent: "from-indigo-950/60 via-[#0a0a0c] to-violet-950/40",
+    image: internDashboardImage,
+    accent: "from-slate-900/90 via-[#0a0c12] to-indigo-950/60",
+    preview: "intern-dashboard",
   },
 ];
 
