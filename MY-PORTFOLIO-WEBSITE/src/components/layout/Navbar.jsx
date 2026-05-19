@@ -20,7 +20,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, scrollTo }) {
           >
             {scrolled && <span className="navbar-glass-layer" aria-hidden />}
 
-            <div className="navbar-glass-content site-header-fade-in">
+            <div className="navbar-glass-content site-header-fade-in gap-3 sm:gap-4">
               <button
                 type="button"
                 onClick={() => scrollTo("hero")}
@@ -82,7 +82,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, scrollTo }) {
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 320 }}
               onClick={(e) => e.stopPropagation()}
-              className="absolute right-0 top-0 flex h-full w-full max-w-[min(100%,300px)] flex-col border-l border-white/[0.06] bg-[#080809]/95 p-6 pt-[max(5rem,env(safe-area-inset-top))]"
+              className="absolute right-0 top-0 flex h-full w-full max-w-[min(100%,min(320px,calc(100vw-1rem)))] flex-col overscroll-y-contain border-l border-white/[0.06] bg-[#080809]/95 p-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] pl-[max(1.25rem,env(safe-area-inset-left))] pr-[max(1.25rem,env(safe-area-inset-right))] pt-[max(5rem,env(safe-area-inset-top))]"
             >
               {navLinks.map((link, i) => (
                 <motion.button

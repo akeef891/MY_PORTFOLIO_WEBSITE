@@ -211,7 +211,7 @@ export default function About() {
           description={about.description}
         />
 
-        <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-x-10 lg:gap-y-0 xl:gap-x-12">
+        <div className="grid min-w-0 items-start gap-8 lg:grid-cols-2 lg:gap-x-10 lg:gap-y-0 xl:gap-x-12">
           <AboutLeftColumn />
 
           <motion.div

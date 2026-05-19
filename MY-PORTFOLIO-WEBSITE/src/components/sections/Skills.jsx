@@ -39,7 +39,7 @@ export default function Skills() {
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className="grid gap-5 md:grid-cols-3 md:gap-6"
+          className="grid min-w-0 gap-5 md:grid-cols-3 md:gap-6"
         >
           {skillGroups.map((group, i) => (
             <motion.div

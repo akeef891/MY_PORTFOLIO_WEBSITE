@@ -11,7 +11,7 @@ const Projects = lazy(() => import("./components/sections/Projects"));
 const Contact = lazy(() => import("./components/sections/Contact"));
 
 function SectionFallback() {
-  return <div className="section-padding min-h-[32vh]" aria-hidden />;
+  return <div className="section-padding min-h-[38vh]" aria-hidden />;
 }
 
 export default function App() {

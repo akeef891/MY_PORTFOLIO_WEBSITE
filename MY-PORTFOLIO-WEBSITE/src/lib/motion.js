@@ -6,7 +6,8 @@ export const transitionFast = { duration: 0.35, ease };
 export const transitionBase = { duration: 0.55, ease };
 export const transitionSlow = { duration: 0.7, ease };
 
-export const viewport = { once: true, margin: "-48px", amount: 0.12 };
+/** Slightly looser margin so in-view reveals fire reliably on short mobile viewports */
+export const viewport = { once: true, margin: "-32px", amount: 0.12 };
 export const viewportTight = { once: true, margin: "-32px", amount: 0.15 };
 
 export const fadeUp = {

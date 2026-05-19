@@ -11,7 +11,7 @@ import { sendContactEmailNotification } from "../../lib/sendContactEmail";
 import { ease, staggerContainer, staggerItem, viewport } from "../../lib/motion";
 
 const INPUT_CLASS =
-  "w-full rounded-xl border border-white/[0.1] bg-white/[0.03] px-4 py-3.5 text-zinc-100 outline-none transition-[border-color,background-color,box-shadow] duration-300 placeholder:text-zinc-500 focus:border-teal-500/40 focus:bg-white/[0.04] focus:ring-2 focus:ring-teal-500/15";
+  "w-full rounded-xl border border-white/[0.1] bg-white/[0.03] px-4 py-3.5 text-zinc-100 outline-none transition-[border-color,background-color,box-shadow] duration-300 placeholder:text-zinc-500/90 focus:border-teal-500/40 focus:bg-white/[0.04] focus:ring-2 focus:ring-teal-500/15";
 
 const SUBMIT_BTN_CLASS =
   "interactive-tap inline-flex w-full min-h-[44px] touch-manipulation items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-medium text-zinc-950 shadow-[0_1px_0_0_rgba(255,255,255,0.12)_inset] transition-[box-shadow,background-color,transform,opacity] duration-300 ease-out hover:bg-zinc-50 hover:shadow-[0_12px_40px_-16px_rgba(255,255,255,0.35)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto";
@@ -43,7 +43,7 @@ function ContactLink({ href, icon: Icon, label, children, iconClassName = "" }) 
         </span>
         <span className="min-w-0">
           <span className="text-label block tracking-wider">{label}</span>
-          <span className="block truncate text-sm text-zinc-200 transition-colors duration-300 group-hover:text-white sm:text-base">
+          <span className="block break-words text-sm text-zinc-200 transition-colors duration-300 group-hover:text-white sm:text-base">
             {children}
           </span>
         </span>
@@ -183,11 +183,11 @@ export default function Contact() {
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className="grid scroll-mt-28 gap-6 sm:scroll-mt-32 lg:grid-cols-2 lg:gap-8"
+          className="grid min-w-0 scroll-mt-28 gap-6 sm:scroll-mt-32 lg:grid-cols-2 lg:gap-8"
         >
           <motion.div
             variants={staggerItem}
-            className="glass rounded-2xl p-5 transition-colors duration-300 hover:border-white/[0.1] sm:p-6 lg:p-8"
+            className="glass min-w-0 rounded-2xl p-5 transition-colors duration-300 hover:border-white/[0.1] sm:p-6 lg:p-8"
           >
             <h3 className="heading-display text-xl text-white sm:text-2xl">Get in touch</h3>
             <p className="body-muted mt-3 leading-relaxed">
@@ -236,7 +236,7 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          <motion.div variants={staggerItem} className="glass rounded-2xl p-5 sm:p-6 lg:p-8">
+          <motion.div variants={staggerItem} className="glass min-w-0 rounded-2xl p-5 sm:p-6 lg:p-8">
             <h3 className="heading-display text-xl text-white sm:text-2xl">Send a message</h3>
             <p className="body-muted mt-2 text-sm leading-relaxed">
               Your message is saved securely — I'll reply as soon as I can.
@@ -244,7 +244,7 @@ export default function Contact() {
 
             <form onSubmit={handleSubmit} className="mt-6 space-y-5 sm:space-y-6" noValidate>
               <div>
-                <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-zinc-400">
+                <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-zinc-300">
                   Name
                 </label>
                 <input
@@ -262,7 +262,7 @@ export default function Contact() {
               </div>
 
               <div>
-                <label htmlFor="contact-email" className="mb-2 block text-sm font-medium text-zinc-400">
+                <label htmlFor="contact-email" className="mb-2 block text-sm font-medium text-zinc-300">
                   Email
                 </label>
                 <input
@@ -280,7 +280,7 @@ export default function Contact() {
               </div>
 
               <div>
-                <label htmlFor="contact-message" className="mb-2 block text-sm font-medium text-zinc-400">
+                <label htmlFor="contact-message" className="mb-2 block text-sm font-medium text-zinc-300">
                   Message
                 </label>
                 <textarea

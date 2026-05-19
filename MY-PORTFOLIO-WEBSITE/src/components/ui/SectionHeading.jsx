@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { staggerContainer, staggerItem } from "../../lib/motion";
+import { staggerContainer, staggerItem, viewport } from "../../lib/motion";
 
 export default function SectionHeading({
   label,
@@ -13,7 +13,7 @@ export default function SectionHeading({
       variants={staggerContainer}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={viewport}
       className={`mb-10 sm:mb-12 md:mb-16 ${className}`}
     >
       <motion.div variants={staggerItem} className="flex items-center gap-3 sm:gap-4">

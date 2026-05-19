@@ -50,9 +50,9 @@ export default function Hero() {
 
 
 
-      <motion.div className="section-container relative z-10 w-full">
+      <motion.div className="section-container relative z-10 w-full min-w-0">
 
-        <div className="grid items-end gap-8 sm:gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14 xl:gap-20">
+        <div className="grid min-w-0 items-end gap-8 sm:gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14 xl:gap-20">
 
           <motion.div
 
