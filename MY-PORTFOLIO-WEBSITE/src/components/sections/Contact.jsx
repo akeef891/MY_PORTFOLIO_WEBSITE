@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, MapPin, Phone, Send, ArrowUpRight, Loader2 } from "lucide-react";
-import { GitHubIcon, LinkedInIcon } from "../ui/SocialIcons";
+import { GitHubIcon, InstagramIcon, LinkedInIcon } from "../ui/SocialIcons";
 import { personal, contact } from "../../data/portfolio";
 import SectionHeading from "../ui/SectionHeading";
 import SectionDivider from "../ui/SectionDivider";
@@ -212,6 +212,9 @@ export default function Contact() {
               <ContactLink href={personal.linkedin} icon={LinkedInIcon} label="LinkedIn">
                 Mohammed Akeef K
               </ContactLink>
+              <ContactLink href={personal.instagram} icon={InstagramIcon} label="Instagram">
+                @{personal.instagramHandle}
+              </ContactLink>
               <li className="flex items-start gap-3 p-2 -ml-2">
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-zinc-400">
                   <MapPin className="h-5 w-5" />
@@ -232,6 +235,9 @@ export default function Contact() {
               </Button>
               <Button href={personal.linkedin} variant="secondary" icon={LinkedInIcon}>
                 LinkedIn
+              </Button>
+              <Button href={personal.instagram} variant="secondary" icon={InstagramIcon}>
+                Instagram
               </Button>
             </div>
           </motion.div>

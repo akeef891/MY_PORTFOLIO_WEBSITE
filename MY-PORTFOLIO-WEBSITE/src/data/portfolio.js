@@ -14,6 +14,8 @@ export const personal = {
   phoneHref: "tel:+919342903964",
   github: "https://github.com/akeef891",
   linkedin: "https://www.linkedin.com/in/mohammed-akeef-k-3241a1373/",
+  instagram: "https://www.instagram.com/md_akeef786/",
+  instagramHandle: "md_akeef786",
   resumeUrl: "/Mohammed_Akeef_Frontend_Resume.pdf",
   headline: "I build clean, responsive web interfaces — one project at a time.",
   intro:

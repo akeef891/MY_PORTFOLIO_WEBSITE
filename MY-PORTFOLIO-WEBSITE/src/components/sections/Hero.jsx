@@ -6,7 +6,7 @@ import { Download, ArrowUpRight } from "lucide-react";
 
 import { personal } from "../../data/portfolio";
 
-import { GitHubIcon, LinkedInIcon } from "../ui/SocialIcons";
+import { GitHubIcon, InstagramIcon, LinkedInIcon } from "../ui/SocialIcons";
 
 import Button from "../ui/Button";
 
@@ -179,6 +179,8 @@ export default function Hero() {
               <SocialButton href={personal.github} label="GitHub" icon={GitHubIcon} />
 
               <SocialButton href={personal.linkedin} label="LinkedIn" icon={LinkedInIcon} />
+
+              <SocialButton href={personal.instagram} label="Instagram" icon={InstagramIcon} />
 
             </motion.div>
 
