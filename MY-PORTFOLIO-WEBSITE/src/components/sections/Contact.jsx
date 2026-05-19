@@ -18,10 +18,10 @@ const SUBMIT_BTN_CLASS =
 
 function ContactBackground() {
   return (
-    <motion.div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-      <div className="absolute left-1/2 top-0 h-[min(70vw,400px)] w-[min(85vw,520px)] -translate-x-1/2 rounded-full bg-teal-500/[0.04] blur-[48px] sm:blur-[72px] md:blur-[100px]" />
-      <div className="absolute -right-20 bottom-0 hidden h-64 w-64 rounded-full bg-white/[0.02] blur-3xl sm:block" />
-    </motion.div>
+    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+      <div className="absolute left-1/2 top-0 h-[min(70vw,400px)] w-[min(85vw,520px)] -translate-x-1/2 rounded-full bg-teal-500/[0.05] sm:bg-teal-500/[0.04] sm:blur-[40px] md:blur-[64px] lg:blur-[88px]" />
+      <div className="absolute -right-20 bottom-0 hidden h-64 w-64 rounded-full bg-white/[0.02] blur-3xl md:block" />
+    </div>
   );
 }
 

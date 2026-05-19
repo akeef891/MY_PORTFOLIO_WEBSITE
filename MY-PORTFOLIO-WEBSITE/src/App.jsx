@@ -24,7 +24,7 @@ export default function App() {
       <Navbar />
 
       <div className="relative min-h-screen overflow-x-hidden bg-[#050506]">
-        <main id="main-content">
+        <main id="main-content" className="min-w-0">
           <Hero />
           <Suspense fallback={<SectionFallback />}>
             <About />

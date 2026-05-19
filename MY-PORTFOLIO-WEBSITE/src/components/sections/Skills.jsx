@@ -4,15 +4,12 @@ import SectionHeading from "../ui/SectionHeading";
 
 const { groups: skillGroups, description: skillsDescription } = skills;
 import SectionDivider from "../ui/SectionDivider";
-import { ease, hoverLift, hoverLiftTransition, staggerContainer, staggerItem, tapLift, viewport } from "../../lib/motion";
+import { hoverLift, hoverLiftTransition, staggerContainer, staggerItem, tapLift, viewport } from "../../lib/motion";
 
-function SkillBadge({ name, delay }) {
+function SkillBadge({ name }) {
   return (
     <motion.li
-      initial={{ opacity: 0, y: 8 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.35, delay, ease }}
+      variants={staggerItem}
       whileHover={{ ...hoverLift, transition: hoverLiftTransition }}
       whileTap={tapLift}
       className="list-none rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-sm text-zinc-300 transition-colors duration-300 hover:border-teal-500/25 hover:text-zinc-100"
@@ -52,11 +49,14 @@ export default function Skills() {
               <span className="text-section-index">{String(i + 1).padStart(2, "0")}</span>
               <h3 className="heading-display mt-3 text-lg text-white">{group.category}</h3>
               <p className="body-muted mt-2 text-sm">{group.description}</p>
-              <ul className="mt-5 flex flex-wrap gap-2 sm:mt-6">
-                {group.items.map((skill, j) => (
-                  <SkillBadge key={skill} name={skill} delay={j * 0.04} />
+              <motion.ul
+                variants={staggerContainer}
+                className="mt-5 flex flex-wrap gap-2 sm:mt-6"
+              >
+                {group.items.map((skill) => (
+                  <SkillBadge key={skill} name={skill} />
                 ))}
-              </ul>
+              </motion.ul>
               <div className="absolute left-0 top-8 h-8 w-px bg-gradient-to-b from-teal-500/40 to-transparent" />
             </motion.div>
           ))}

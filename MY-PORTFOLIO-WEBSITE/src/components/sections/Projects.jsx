@@ -1,5 +1,6 @@
 import { memo, useCallback, useRef } from "react";
 import { motion, useMotionTemplate, useSpring } from "framer-motion";
+import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { ArrowUpRight, Check, ExternalLink } from "lucide-react";
 import { GitHubIcon } from "../ui/SocialIcons";
 import ProjectPreviewArt from "../ui/ProjectPreviewArt";
@@ -50,6 +51,7 @@ function ProjectMedia({ project, index, isFeatured }) {
               alt={`${project.title} dashboard screenshot`}
               loading={index === 0 ? "eager" : "lazy"}
               decoding="async"
+              fetchPriority={index === 0 ? "high" : "auto"}
               className="project-preview-media"
             />
           ) : (
@@ -129,10 +131,12 @@ function ProjectActions({ project }) {
 
 function ProjectCard({ project, index }) {
   const isFeatured = project.highlight;
-  const tiltEnabled = useRef(
+  const reducedMotion = usePrefersReducedMotion();
+  const finePointer = useRef(
     typeof window !== "undefined" &&
       window.matchMedia("(hover: hover) and (pointer: fine)").matches
   ).current;
+  const tiltEnabled = finePointer && !reducedMotion;
   const { rx, ry, onMove, onLeave } = useCardTilt(tiltEnabled);
   const transform = useMotionTemplate`perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg)`;
 
@@ -140,11 +144,14 @@ function ProjectCard({ project, index }) {
     <motion.article
       variants={staggerItem}
       whileTap={tapLift}
-      className="project-card-glow group h-full"
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
+      className="project-card-glow group h-full min-w-0"
+      onMouseMove={tiltEnabled ? onMove : undefined}
+      onMouseLeave={tiltEnabled ? onLeave : undefined}
     >
-      <motion.div className="project-glass h-full" style={{ transform }}>
+      <motion.div
+        className="project-glass h-full"
+        style={tiltEnabled ? { transform } : undefined}
+      >
         <ProjectMedia project={project} index={index} isFeatured={isFeatured} />
 
         <div className="project-body">

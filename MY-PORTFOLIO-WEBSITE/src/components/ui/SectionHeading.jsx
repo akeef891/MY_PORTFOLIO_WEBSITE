@@ -14,7 +14,7 @@ export default function SectionHeading({
       initial="hidden"
       whileInView="show"
       viewport={viewport}
-      className={`mb-10 sm:mb-12 md:mb-16 ${className}`}
+      className={`mb-10 min-w-0 sm:mb-12 md:mb-16 ${className}`}
     >
       <motion.div variants={staggerItem} className="flex items-center gap-3 sm:gap-4">
         {index && <span className="text-section-index">{index}</span>}

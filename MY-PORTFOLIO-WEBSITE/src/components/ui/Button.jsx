@@ -63,7 +63,7 @@ function Button({
         rel={isHttp ? "noopener noreferrer" : undefined}
         onClick={disabled ? (e) => e.preventDefault() : undefined}
         whileHover={disabled ? undefined : hoverLift}
-        whileTap={disabled ? undefined : { scale: 0.98, y: 0 }}
+        whileTap={disabled ? undefined : { y: 0 }}
         transition={springTap}
         className={classes}
         aria-disabled={disabled || undefined}
@@ -80,7 +80,7 @@ function Button({
       onClick={onClick}
       disabled={disabled}
       whileHover={disabled ? undefined : hoverLift}
-      whileTap={disabled ? undefined : { scale: 0.98, y: 0 }}
+      whileTap={disabled ? undefined : { y: 0 }}
       transition={springTap}
       className={classes}
       aria-disabled={disabled || undefined}

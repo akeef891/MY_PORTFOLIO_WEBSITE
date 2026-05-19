@@ -76,11 +76,11 @@ export default function Hero() {
 
               <motion.span
 
-                initial={{ opacity: 0, scale: 0.6 }}
+                initial={{ opacity: 0, y: 6 }}
 
-                animate={{ opacity: 1, scale: 1 }}
+                animate={{ opacity: 1, y: 0 }}
 
-                transition={{ duration: 0.45, delay: 0.1, ease }}
+                transition={{ duration: 0.42, delay: 0.1, ease }}
 
                 className="hero-badge-index text-section-index"
 
@@ -106,11 +106,11 @@ export default function Hero() {
 
               <motion.span
 
-                initial={{ opacity: 0, x: -10 }}
+                initial={{ opacity: 0, y: 8 }}
 
-                animate={{ opacity: 1, x: 0 }}
+                animate={{ opacity: 1, y: 0 }}
 
-                transition={{ duration: 0.55, delay: 0.28, ease }}
+                transition={{ duration: 0.5, delay: 0.28, ease }}
 
                 className="text-label normal-case tracking-[0.14em] sm:tracking-[0.16em]"
 
@@ -142,7 +142,7 @@ export default function Hero() {
 
             <motion.p
               variants={heroItem}
-              whileTap={{ scale: 0.995 }}
+              whileTap={{ y: -1 }}
               className="hero-intro body-muted mt-4 max-w-[48ch] sm:mt-5"
             >
               {personal.intro}

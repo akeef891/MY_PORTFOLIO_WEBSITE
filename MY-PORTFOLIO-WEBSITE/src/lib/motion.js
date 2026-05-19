@@ -2,9 +2,9 @@
 export const ease = [0.22, 1, 0.36, 1];
 export const easeSoft = [0.25, 0.46, 0.45, 0.94];
 
-export const transitionFast = { duration: 0.35, ease };
-export const transitionBase = { duration: 0.55, ease };
-export const transitionSlow = { duration: 0.7, ease };
+export const transitionFast = { duration: 0.32, ease };
+export const transitionBase = { duration: 0.5, ease };
+export const transitionSlow = { duration: 0.65, ease };
 
 /** Slightly looser margin so in-view reveals fire reliably on short mobile viewports */
 export const viewport = { once: true, margin: "-32px", amount: 0.12 };
@@ -22,18 +22,18 @@ export const fadeUp = {
 /** Subtle hover lift — use on cards and interactive blocks */
 export const hoverLift = { y: -2 };
 export const hoverLiftTransition = { duration: 0.35, ease };
-/** Touch-friendly lift — use with whileTap on cards and text blocks */
-export const tapLift = { y: -2, scale: 0.99 };
+/** Touch-friendly lift — transform only (no scale) for smoother mobile paint */
+export const tapLift = { y: -1 };
 
 export const staggerContainer = {
   hidden: {},
   show: {
-    transition: { staggerChildren: 0.07, delayChildren: 0.05 },
+    transition: { staggerChildren: 0.06, delayChildren: 0.04 },
   },
 };
 
 export const staggerItem = {
-  hidden: { opacity: 0, y: 12 },
+  hidden: { opacity: 0, y: 10 },
   show: {
     opacity: 1,
     y: 0,
@@ -84,10 +84,10 @@ export const heroWord = {
 
 /** Y-reveal only — reliable on iOS/Android (clip-path animates poorly on some mobile browsers) */
 export const heroNameLine = {
-  hidden: { opacity: 0, y: 32 },
+  hidden: { opacity: 0, y: 24 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.85, ease },
+    transition: { duration: 0.72, ease },
   },
 };
