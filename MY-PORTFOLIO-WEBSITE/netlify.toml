@@ -1,9 +1,16 @@
-# If Netlify "Base directory" is set to MY-PORTFOLIO-WEBSITE, use this file.
+# Use this file when Netlify "Base directory" is MY-PORTFOLIO-WEBSITE.
 # If deploying from repo root, use /netlify.toml at the parent folder instead.
 
 [build]
   command = "npm ci && npm run build"
   publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
 
 [[redirects]]
   from = "/*"

@@ -4,6 +4,10 @@
   command = "npm ci && npm run build"
   publish = "dist"
 
+[build.environment]
+  NODE_VERSION = "20"
+
+# Relative to base directory (MY-PORTFOLIO-WEBSITE)
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
