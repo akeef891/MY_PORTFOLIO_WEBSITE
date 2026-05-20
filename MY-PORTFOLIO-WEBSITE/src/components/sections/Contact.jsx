@@ -187,7 +187,7 @@ export default function Contact() {
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className="grid min-w-0 scroll-mt-28 gap-6 sm:scroll-mt-32 lg:grid-cols-2 lg:gap-8"
+          className="grid min-w-0 scroll-mt-28 gap-6 sm:scroll-mt-32 lg:grid-cols-2 lg:items-start lg:gap-8"
         >
           <motion.div
             variants={staggerItem}
