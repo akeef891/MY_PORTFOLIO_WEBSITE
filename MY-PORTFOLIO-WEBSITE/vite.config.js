@@ -3,8 +3,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-
-const DEFAULT_SITE_URL = "https://mohammed-akeef-k.netlify.app";
+import { DEFAULT_SITE_URL } from "./site.config.js";
 
 function seoBuildPlugin(siteUrl) {
   const base = siteUrl.replace(/\/$/, "") || DEFAULT_SITE_URL;

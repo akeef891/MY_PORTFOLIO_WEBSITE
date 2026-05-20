@@ -1,9 +1,8 @@
 import { personal, projects, skills } from "../data/portfolio";
+import { DEFAULT_SITE_URL } from "../../site.config.js";
 
-/** Set VITE_SITE_URL in Netlify (e.g. https://your-site.netlify.app) — no trailing slash */
-export const siteUrl = (
-  import.meta.env.VITE_SITE_URL || "https://mohammed-akeef-k.netlify.app"
-).replace(/\/$/, "");
+/** Override with VITE_SITE_URL in Netlify if needed — no trailing slash */
+export const siteUrl = (import.meta.env.VITE_SITE_URL || DEFAULT_SITE_URL).replace(/\/$/, "");
 
 export const siteMeta = {
   title: "Mohammed Akeef K | Frontend Developer Portfolio",
