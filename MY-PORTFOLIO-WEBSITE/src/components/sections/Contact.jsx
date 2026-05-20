@@ -144,7 +144,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="section-padding relative overflow-hidden">
+    <section id="contact" className="section-padding relative overflow-hidden" aria-labelledby="contact-heading">
       <ContactBackground />
       <SectionDivider />
 

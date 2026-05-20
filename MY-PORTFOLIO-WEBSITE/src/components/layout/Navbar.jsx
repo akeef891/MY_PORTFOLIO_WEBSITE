@@ -16,6 +16,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, scrollTo }) {
       >
         <div className="section-container pt-[max(0.75rem,env(safe-area-inset-top))]">
           <nav
+            aria-label="Main navigation"
             className={`navbar-shell ${scrolled ? "navbar-shell--glass" : "px-0 py-2"}`}
           >
             {scrolled && <span className="navbar-glass-layer" aria-hidden />}
@@ -24,6 +25,7 @@ function NavbarContent({ scrolled, mobileOpen, setMobileOpen, scrollTo }) {
               <button
                 type="button"
                 onClick={() => scrollTo("hero")}
+                aria-label="Mohammed Akeef K — go to home"
                 className="font-display min-h-[44px] min-w-[44px] text-left text-lg font-semibold tracking-tight sm:min-h-0 sm:min-w-0"
               >
                 <span className="text-accent">MA</span>

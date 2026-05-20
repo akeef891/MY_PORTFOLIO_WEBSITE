@@ -21,7 +21,7 @@ function SkillBadge({ name }) {
 
 export default function Skills() {
   return (
-    <section id="skills" className="section-padding">
+    <section id="skills" className="section-padding" aria-labelledby="skills-heading">
       <SectionDivider />
       <div className="section-container section-inner">
         <SectionHeading

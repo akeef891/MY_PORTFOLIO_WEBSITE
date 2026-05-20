@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Mohammed Akeef K Frontend Developer Portfolio">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050506"/>
+      <stop offset="100%" stop-color="#0c1214"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="100%" stop-color="#94a3b8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="80" y="80" width="1040" height="470" rx="24" fill="#ffffff" fill-opacity="0.03" stroke="#ffffff" stroke-opacity="0.08"/>
+  <text x="120" y="260" fill="#f4f4f5" font-family="system-ui,Segoe UI,sans-serif" font-size="64" font-weight="700">Mohammed Akeef K</text>
+  <text x="120" y="330" fill="#5eead4" font-family="system-ui,Segoe UI,sans-serif" font-size="36" font-weight="600">Frontend Developer Portfolio</text>
+  <text x="120" y="400" fill="#d4d4d8" font-family="system-ui,Segoe UI,sans-serif" font-size="28">React · TypeScript · Tailwind CSS · Firebase</text>
+  <text x="120" y="460" fill="#a1a1aa" font-family="system-ui,Segoe UI,sans-serif" font-size="24">Tamil Nadu, India · Open to internships</text>
+  <rect x="120" y="500" width="280" height="6" rx="3" fill="url(#accent)"/>
+</svg>

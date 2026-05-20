@@ -21,7 +21,11 @@ export default function SectionHeading({
         <span className="h-px w-6 bg-white/[0.12] sm:w-8" />
         <p className="text-label">{label}</p>
       </motion.div>
-      <motion.h2 variants={staggerItem} className="heading-section mt-4 max-w-3xl sm:mt-5">
+      <motion.h2
+        id={label ? `${label.toLowerCase().replace(/\s+/g, "-")}-heading` : undefined}
+        variants={staggerItem}
+        className="heading-section mt-4 max-w-3xl sm:mt-5"
+      >
         {title}
       </motion.h2>
       {description && (

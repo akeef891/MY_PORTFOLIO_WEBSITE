@@ -201,7 +201,7 @@ function AboutHighlightCard({ item }) {
 
 export default function About() {
   return (
-    <section id="about" className="section-padding">
+    <section id="about" className="section-padding" aria-labelledby="about-heading">
       <SectionDivider />
       <div className="section-container section-inner">
         <SectionHeading

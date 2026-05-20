@@ -186,7 +186,7 @@ function ProjectCard({ project, index }) {
 
 function Projects() {
   return (
-    <section id="projects" className="section-padding">
+    <section id="projects" className="section-padding" aria-labelledby="projects-heading">
       <SectionDivider />
       <div className="section-container section-inner projects-shell">
         <SectionHeading

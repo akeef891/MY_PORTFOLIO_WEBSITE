@@ -42,6 +42,8 @@ export default function Hero() {
 
       id="hero"
 
+      aria-label="Introduction"
+
       className="relative overflow-hidden pt-[calc(5.25rem+env(safe-area-inset-top))] pb-10 sm:pb-12 md:pt-28 lg:flex lg:min-h-[100svh] lg:items-center lg:pb-20"
 
     >
