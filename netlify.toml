@@ -12,6 +12,27 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
+# Static files (verification, robots, sitemap) are served from dist before SPA fallback.
+# public/_redirects mirrors these rules for Netlify publish directory.
+
+[[redirects]]
+  from = "/google3629eea469b194fe.html"
+  to = "/google3629eea469b194fe.html"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/robots.txt"
+  to = "/robots.txt"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
+  status = 200
+  force = false
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
