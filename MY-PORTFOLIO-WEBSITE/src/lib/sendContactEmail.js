@@ -1,16 +1,43 @@
 const EMAIL_FUNCTION_URL = "/.netlify/functions/send-contact-email";
+const EMAIL_TIMEOUT_MS = 9000;
+const EMAIL_RETRY_DELAY_MS = 1000;
+
+function wait(ms) {
+  return new Promise((resolve) => {
+    window.setTimeout(resolve, ms);
+  });
+}
+
+async function requestEmail({ name, email, message }) {                                               
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(() => controller.abort(), EMAIL_TIMEOUT_MS);
+
+  try {
+    const response = await fetch(EMAIL_FUNCTION_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, message }),
+      signal: controller.signal,
+    });
+    return response;
+  } finally {
+    window.clearTimeout(timeoutId);
+  }
+}
 
 export async function sendContactEmailNotification({ name, email, message }) {
   let response;
   try {
-    response = await fetch(EMAIL_FUNCTION_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, message }),
-    });
+    response = await requestEmail({ name, email, message });
   } catch (networkError) {
-    console.error("[sendContactEmail] Network error:", networkError);
-    throw new Error("Could not reach the email service");
+    console.error("[sendContactEmail] Attempt 1 failed:", networkError);
+    await wait(EMAIL_RETRY_DELAY_MS);
+    try {
+      response = await requestEmail({ name, email, message });
+    } catch (retryError) {
+      console.error("[sendContactEmail] Attempt 2 failed:", retryError);
+      throw new Error("Could not reach the email service");
+    }
   }
 
   const contentType = response.headers.get("content-type") || "";

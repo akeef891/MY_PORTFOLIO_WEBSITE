@@ -10,6 +10,7 @@
  */
 
 const RESEND_API_URL = "https://api.resend.com/emails";
+const RESEND_TIMEOUT_MS = 9000;
 const NOTIFY_EMAIL = process.env.CONTACT_NOTIFY_EMAIL || "mdakeef2009@gmail.com";
 const DEFAULT_FROM = "Portfolio <onboarding@resend.dev>";
 
@@ -51,14 +52,23 @@ function formatResendError(payload, status) {
 }
 
 async function sendWithResend(apiKey, emailPayload) {
-  const response = await fetch(RESEND_API_URL, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(emailPayload),
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), RESEND_TIMEOUT_MS);
+
+  let response;
+  try {
+    response = await fetch(RESEND_API_URL, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(emailPayload),
+      signal: controller.signal,
+    });
+  } finally {
+    clearTimeout(timeoutId);
+  }
 
   let body = {};
   const text = await response.text();

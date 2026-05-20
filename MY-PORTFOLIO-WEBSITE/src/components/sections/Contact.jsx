@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Mail, MapPin, Phone, Send, ArrowUpRight, Loader2 } from "lucide-react";
 import { GitHubIcon, InstagramIcon, LinkedInIcon } from "../ui/SocialIcons";
 import { personal, contact } from "../../data/portfolio";
@@ -56,7 +56,11 @@ function FormStatus({ status, message }) {
   if (!message) return null;
   const isSuccess = status === "success";
   return (
-    <p
+    <motion.p
+      initial={{ opacity: 0, y: 4 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -4 }}
+      transition={{ duration: 0.24, ease }}
       role="status"
       className={`rounded-lg border px-4 py-3 text-sm ${
         isSuccess
@@ -65,7 +69,7 @@ function FormStatus({ status, message }) {
       }`}
     >
       {message}
-    </p>
+    </motion.p>
   );
 }
 
@@ -75,6 +79,14 @@ export default function Contact() {
   const [message, setMessage] = useState("");
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState({ type: "", message: "" });
+
+  useEffect(() => {
+    if (status.type !== "success" || !status.message) return undefined;
+    const id = window.setTimeout(() => {
+      setStatus({ type: "", message: "" });
+    }, 4500);
+    return () => window.clearTimeout(id);
+  }, [status]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -102,6 +114,7 @@ export default function Contact() {
         email: trimmedEmail,
         message: trimmedMessage,
       });
+      console.log("[contact] Firestore save success");
 
       try {
         await sendContactEmailNotification({
@@ -111,15 +124,6 @@ export default function Contact() {
         });
       } catch (emailError) {
         console.error("[contact] Email notification failed:", emailError);
-        setName("");
-        setEmail("");
-        setMessage("");
-        setStatus({
-          type: "success",
-          message:
-            "Message saved. Email alert did not send — I'll still see it in my inbox soon.",
-        });
-        return;
       }
 
       setName("");
@@ -127,7 +131,7 @@ export default function Contact() {
       setMessage("");
       setStatus({
         type: "success",
-        message: "Message sent — I'll get back to you soon.",
+        message: "Message received successfully — I'll get back to you soon.",
       });
     } catch {
       setStatus({
@@ -302,7 +306,15 @@ export default function Contact() {
                 />
               </div>
 
-              <FormStatus status={status.type} message={status.message} />
+              <div className="min-h-[3.25rem]">
+                <AnimatePresence mode="wait">
+                  <FormStatus
+                    key={`${status.type}-${status.message}`}
+                    status={status.type}
+                    message={status.message}
+                  />
+                </AnimatePresence>
+              </div>
 
               <button type="submit" disabled={sending} className={SUBMIT_BTN_CLASS}>
                 {sending ? (
